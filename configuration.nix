@@ -103,11 +103,17 @@ services.greetd = {
   grimblast
   jq
   quickshell
+  wf-recorder
+  linuxKernel.packages.linux_5_15.rtw89
+  slurp
+  mpv
+  pulseaudioFull
+  inkscape
   ];
 
 fonts.packages = with pkgs; [
 adwaita-fonts
-nerd-fonts.fira-code
+nerd-fonts.symbols-only
 noto-fonts
 noto-fonts-cjk-sans
 noto-fonts-emoji
