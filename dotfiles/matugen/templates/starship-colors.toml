@@ -1,0 +1,42 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+[](color1)\
+${custom.moon}\
+[](color1)\
+[●](color1)\
+[](color1)\
+[‎ ](bg:color1)\
+$directory\
+[\n](color1)\
+$character\
+"""
+
+palette = 'colors'
+
+[palettes.colors]
+mustard = '#af8700' # example
+color1 = '{{colors.primary.default.hex}}'
+color2 = '{{colors.primary_container.default.hex}}'
+color3 = '{{colors.on_secondary_container.default.hex}}'
+color4 = '{{colors.error.default.hex}}'
+color5 = '{{colors.primary_fixed.default.hex}}'
+color6 = '{{colors.surface_dim.default.hex}}'
+color7 = '{{colors.surface.default.hex}}'
+color8 = '{{colors.primary.default.hex}}'
+color9 = '{{colors.tertiary.default.hex}}'
+
+[character]
+success_symbol = "[](color5)"
+error_symbol = "[](color4)"
+
+[custom.moon]
+command = "~/.config/matugen/templates/moonphase.sh"
+when = true
+shell = "bash"
+style = "bg:color1 fg:color2"
+
+[directory]
+style = "bg:color1 fg:color2"
+read_only = ""
+format = '[$path]($style)'

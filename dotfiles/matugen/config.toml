@@ -12,3 +12,7 @@ output_path = '~/.config/quickshell/Colors.qml'
 [templates.overview]
 input_path = './templates/overview.txt'
 output_path = './overview.txt'
+
+[templates.starship]
+input_path = './templates/starship-colors.toml'
+output_path = '~/.config/starship.toml'

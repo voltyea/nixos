@@ -4,59 +4,59 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    ./hardware-configuration.nix
     ];
 
-  # Bootloader.
+# Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.timeout = 0;
   boot.kernelModules = [ "rtw89" ];
   hardware.enableAllFirmware = true;
- boot.initrd.availableKernelModules = [
-  "xhci_pci"
-  "xhci_hcd"
-  "ehci_pci"
-  "ehci_hcd"
-  "ohci_hcd"
-  "uhci_hcd"
-  "usbcore"
-  "usb_common"
-  "usb_storage"
-  "uas"
-  "scsi_mod"
-  "sd_mod"
-  "sr_mod"
-  "ahci"
-  "libahci"
-  "libata"
-  "usbhid"
-  "hid_generic"
-  "nvme"
-];
-  
-  # Use latest kernel.
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+      "xhci_hcd"
+      "ehci_pci"
+      "ehci_hcd"
+      "ohci_hcd"
+      "uhci_hcd"
+      "usbcore"
+      "usb_common"
+      "usb_storage"
+      "uas"
+      "scsi_mod"
+      "sd_mod"
+      "sr_mod"
+      "ahci"
+      "libahci"
+      "libata"
+      "usbhid"
+      "hid_generic"
+      "nvme"
+  ];
+
+# Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
   networking.hostName = "nixos";
 
-  # Enable networking
+# Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
+# Set your time zone.
   time.timeZone = "Asia/Kolkata";
 
-services.greetd = {
-  enable = true;
-  settings = rec {
-    initial_session = {
-      command = "${pkgs.hyprland}/bin/hyprland";
-      user = "volty";
+  services.greetd = {
+    enable = true;
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.hyprland}/bin/hyprland";
+        user = "volty";
+      };
+      default_session = initial_session;
     };
-    default_session = initial_session;
   };
-};
 
-  # Enable sound with pipewire.
+# Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -66,15 +66,14 @@ services.greetd = {
     pulse.enable = true;
   };
 
+  users.defaultUserShell = pkgs.fish;
   users.users.volty = {
     isNormalUser = true;
     description = "volty";
     home = "/home/volty/";
-    extraGroups = [ "networkmanager" "wheel" ];
-    #shell = pkgs.fish;
+    extraGroups = [ "networkmanager" "wheel" "input" "video" ];
     packages = with pkgs; [
     ];
-
   };
 
   programs.firefox.enable = true;
@@ -87,94 +86,104 @@ services.greetd = {
   environment.sessionVariables.EDITOR = "nvim";
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-  kitty
-  brightnessctl
-  adwaita-icon-theme
-  nautilus
-  whitesur-gtk-theme
-  whitesur-icon-theme
-  bibata-cursors
-  tree
-  clang
-  gcc
-  unzip
-  matugen
-  cliphist
-  grimblast
-  jq
-  quickshell
-  wf-recorder
-  linuxKernel.packages.linux_5_15.rtw89
-  slurp
-  mpv
-  pulseaudioFull
-  inkscape
+    kitty
+      brightnessctl
+      adwaita-icon-theme
+      nautilus
+      whitesur-gtk-theme
+      whitesur-icon-theme
+      bibata-cursors
+      tree
+      clang
+      gcc
+      unzip
+      matugen
+      cliphist
+      grimblast
+      jq
+      quickshell
+      wf-recorder
+      linuxKernel.packages.linux_5_15.rtw89
+      slurp
+      mpv
+      pulseaudioFull
+      pavucontrol
+      cava
+      entr
+      hyprpicker
+      libnotify
+      starship
+      inkscape
+      fontforge-gtk
+      oh-my-posh
+      gparted
+      hyprpolkitagent
+      ];
+
+  fonts.packages = with pkgs; [
+    adwaita-fonts
+      nerd-fonts.symbols-only
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-color-emoji
+      (import ./pkgs/sf-pro-rounded-medium.nix { inherit pkgs; })
+      (import ./pkgs/ligasfmononerdfont-medium.nix { inherit pkgs; })
+      (import ./pkgs/icomoon.nix { inherit pkgs; })
   ];
 
-fonts.packages = with pkgs; [
-adwaita-fonts
-nerd-fonts.symbols-only
-noto-fonts
-noto-fonts-cjk-sans
-noto-fonts-emoji
-(import ./pkgs/sf-pro-rounded-medium.nix { inherit pkgs; })
-(import ./pkgs/ligasfmononerdfont-medium.nix { inherit pkgs; })
-(import ./pkgs/icomoon.nix { inherit pkgs; })
-];
-
-nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   programs.dconf.profiles.volty.databases = [
-    {
-      settings."org/gnome/desktop/interface" = {
-        gtk-theme = "WhiteSur-Dark";
-        font-name = "SF Pro Rounded Medium 11";
-	icon-theme = "WhiteSur-dark";
-	cursor-theme = "Bibata-Modern-Ice";
-	cursor-size = "24";
-	font-hinting = "full";
-	font-antialiasing = "rgba";
-	font-rgba-order = "rgb";
-	color-scheme = "prefer-dark";
-	event-sounds = "true";
-	nput-feedback-sounds = "false";
-      };
-    }
+  {
+    settings."org/gnome/desktop/interface" = {
+      gtk-theme = "WhiteSur-Dark";
+      font-name = "SF Pro Rounded Medium 11";
+      icon-theme = "WhiteSur-dark";
+      cursor-theme = "Bibata-Modern-Ice";
+      cursor-size = "24";
+      font-hinting = "full";
+      font-antialiasing = "rgba";
+      font-rgba-order = "rgb";
+      color-scheme = "prefer-dark";
+      event-sounds = "true";
+      nput-feedback-sounds = "false";
+    };
+  }
   ];
 
-services.gvfs.enable = true;
-hardware.bluetooth.enable = true;
+  services.gvfs.enable = true;
+  hardware.bluetooth.enable = true;
 
-system.userActivationScripts = {
+  system.userActivationScripts = {
     user = "volty";
     text = ''
-TARGET_DIR="/home/volty/.config/"
-FILES="/home/volty/dotfiles/hypr/
-/home/volty/dotfiles/kitty/
-/home/volty/dotfiles/nvim/
-/home/volty/dotfiles/fish/
-/home/volty/dotfiles/matugen/
-/home/volty/dotfiles/quickshell/"
+      TARGET_DIR="/home/volty/.config/"
+      FILES="/home/volty/dotfiles/hypr/
+      /home/volty/dotfiles/kitty/
+      /home/volty/dotfiles/nvim/
+      /home/volty/dotfiles/fish/
+      /home/volty/dotfiles/matugen/
+      /home/volty/dotfiles/quickshell/"
 
-for SRC in $FILES; do
-    BASENAME=$(basename "$SRC")
-    DEST="$TARGET_DIR/$BASENAME"
+      for SRC in $FILES; do
+        BASENAME=$(basename "$SRC")
+          DEST="$TARGET_DIR/$BASENAME"
 
-        if [ -L "$DEST" ]; then
+          if [ -L "$DEST" ]; then
             LINK_TARGET=$(readlink "$DEST")
-            if [ "$LINK_TARGET" == "$SRC" ]; then
+              if [ "$LINK_TARGET" == "$SRC" ]; then
                 continue
-            else
+              else
                 mv -f "$DEST" "$DEST.bak"
-            fi
-        else
+                  fi
+          else
             mv -f "$DEST" "$DEST.bak"
-        fi
+              fi
 
-    ln -sf "$SRC" "$DEST"
-done
+              ln -sf "$SRC" "$DEST"
+              done
 
-    '';
+              '';
   };
 
   system.stateVersion = "25.05";

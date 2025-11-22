@@ -2,11 +2,11 @@
 
 pkgs.stdenv.mkDerivation {
   name = "icomoon";
-  src = ./icomoon.woff;
+  src = ./icomoon.ttf;
   dontUnpack = true;
   installPhase = ''
-    mkdir -p $out/share/fonts/woff
-    cp $src $out/share/fonts/woff/
+    mkdir -p $out/share/fonts/ttf
+    cp $src $out/share/fonts/ttf/
   '';
 }
 

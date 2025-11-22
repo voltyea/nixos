@@ -3,48 +3,50 @@ import Quickshell
 import QtQuick
 import Quickshell.Hyprland
 import QtQuick.Shapes
+import QtQuick.Layouts
 
 Rectangle {
   property int previousWorkspaceId: 0
   property real previousWorkspacePosition: 0
   height: childrenRect.height
-  width: Math.min(childrenRect.width, 275.09375)
+  width: Math.min(childrenRect.width, 316)
   color: "transparent"
   clip: true
-  Row {
-    spacing: 1
+  RowLayout {
+    spacing: 5
     Repeater {
       id: wsRepeater
-      model: Hyprland.workspaces.values[Hyprland.workspaces.values.length-1].id
+      model: Hyprland.workspaces.values[Hyprland.workspaces.values.length-1]?.id ?? 0
       Text {
         property bool beingHovered: false
-        text: "󰫢"
-        font.pointSize: 22
-        font.family: "Symbols Nerd Font"
-        color: beingHovered ? "#" + Colors.on_secondary_fixed_variant : "#" + Colors.on_primary
+        text: ""
+        font.pointSize: 20
+        font.family: "icomoon"
+        font.weight: Hyprland.focusedWorkspace?.id !== index+1 && beingHovered ? 700 : 1
+        color: Hyprland.focusedWorkspace?.id !== index+1 && beingHovered ? "#" + Colors.on_secondary_fixed_variant : "#" + Colors.on_primary
         MouseArea {
           anchors.fill: parent
           hoverEnabled: true
           onEntered: beingHovered = true
           onExited: beingHovered = false
-          onClicked: Hyprland.dispatch(`workspace ${index+1}`)
+          onClicked: if (Hyprland.focusedWorkspace?.id !== index+1) Hyprland.dispatch(`workspace ${index+1}`)
         }
       }
     }
   }
   Text {
     id: activeWS
-    text: "󰫢"
-    font.pointSize: 22
-    font.family: "Symbols Nerd Font"
+    text: ""
+    font.pointSize: 20
+    font.family: "icomoon"
     color: "#" + Colors.primary_fixed_dim
-    x: wsRepeater.itemAt(Hyprland.focusedWorkspace.id-1).x
+    x: wsRepeater.itemAt(Hyprland.focusedWorkspace?.id-1 ?? 0)?.x ?? 0
     property real currentX: 0
     Behavior on x {
       NumberAnimation {
         alwaysRunToEnd: false
-        duration: 90
-        easing.type: Easing.OutCubic
+        duration: 190
+        easing.type: Easing.OutQuart
       }
     }
     onXChanged: {
@@ -73,9 +75,9 @@ Rectangle {
         running: false
         alwaysRunToEnd: false
         from: 0
-        to: wsRepeater.itemAt(Hyprland.focusedWorkspace.id-1).x-previousWorkspacePosition
-        duration: 60
-        easing.type: Easing.Linear
+        to: wsRepeater.itemAt(Hyprland.focusedWorkspace?.id-1 ?? 0)?.x-previousWorkspacePosition ?? 0
+        duration: 90
+        easing.type: Easing.OutBack
       }
       Image {
         asynchronous: true
@@ -100,9 +102,9 @@ Rectangle {
         running: false
         alwaysRunToEnd: false
         from: 0
-        to: previousWorkspacePosition-wsRepeater.itemAt(Hyprland.focusedWorkspace.id-1).x
-        duration: 60
-        easing.type: Easing.Linear
+        to: previousWorkspacePosition-wsRepeater.itemAt(Hyprland.focusedWorkspace?.id-1 ?? 0)?.x ?? 0
+        duration: 90
+        easing.type: Easing.OutBack
       }
       Image {
         mirror: true
