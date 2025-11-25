@@ -77,6 +77,7 @@
   };
 
   programs.firefox.enable = true;
+  qt.enable = true;
   programs.fish.enable = true;
   programs.nix-ld.enable = true;
   programs.hyprland.enable = true;
@@ -113,11 +114,10 @@
       hyprpicker
       libnotify
       starship
-      inkscape
-      fontforge-gtk
       oh-my-posh
       gparted
       hyprpolkitagent
+      kdePackages.qtimageformats
       ];
 
   fonts.packages = with pkgs; [

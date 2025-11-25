@@ -1,14 +1,14 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](color1)\
+[](color6)\
 ${custom.moon}\
-[](color1)\
+[](color6)\
 [●](color1)\
-[](color1)\
-[‎ ](bg:color1)\
+[](color6)\
+[‎ ](bg:color6)\
 $directory\
-[\n](color1)\
+[\n](color6)\
 $character\
 """
 
@@ -21,22 +21,22 @@ color2 = '{{colors.primary_container.default.hex}}'
 color3 = '{{colors.on_secondary_container.default.hex}}'
 color4 = '{{colors.error.default.hex}}'
 color5 = '{{colors.primary_fixed.default.hex}}'
-color6 = '{{colors.surface_dim.default.hex}}'
-color7 = '{{colors.surface.default.hex}}'
-color8 = '{{colors.primary.default.hex}}'
+color6 = '{{colors.inverse_primary.default.hex}}'
+color7 = '{{colors.primary_fixed_dim.default.hex}}'
+color8 = '{{colors.on_primary.default.hex}}'
 color9 = '{{colors.tertiary.default.hex}}'
 
 [character]
-success_symbol = "[](color5)"
-error_symbol = "[](color4)"
+success_symbol = "[● ](color1)"
+error_symbol = "[● ](color1)[](color4)"
 
 [custom.moon]
 command = "~/.config/matugen/templates/moonphase.sh"
 when = true
 shell = "bash"
-style = "bg:color1 fg:color2"
+style = "bg:color6 fg:color1"
 
 [directory]
-style = "bg:color1 fg:color2"
+style = "bg:color6 fg:color1"
 read_only = ""
 format = '[$path]($style)'

@@ -33,12 +33,14 @@ Variants {
         fillMode: Image.PreserveAspectCrop
         cache: false
       }
+
       LunarClock {
-        anchors.bottom: parent.bottom
         anchors.right: parent.right
-        anchors.bottomMargin: 50
+        anchors.bottom: parent.bottom
         anchors.rightMargin: 50
+        anchors.bottomMargin: 50
       }
+
       PanelWindow {
         id: leftBar
         anchors.left: true
