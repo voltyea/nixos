@@ -9,21 +9,21 @@ Rectangle {
   property int previousWorkspaceId: 0
   property real previousWorkspacePosition: 0
   height: childrenRect.height
-  width: Math.min(childrenRect.width, 316)
+  width: Math.min(childrenRect.width, 294)
   color: "transparent"
   clip: true
   RowLayout {
-    spacing: 5
+    spacing: 6
     Repeater {
       id: wsRepeater
       model: Hyprland.workspaces.values[Hyprland.workspaces.values.length-1]?.id ?? 0
       Text {
         property bool beingHovered: false
         text: ""
-        font.pointSize: 20
+        font.pointSize: 18
         font.family: "icomoon"
-        font.weight: Hyprland.focusedWorkspace?.id !== index+1 && beingHovered ? 700 : 1
-        color: Hyprland.focusedWorkspace?.id !== index+1 && beingHovered ? "#" + Colors.on_secondary_fixed_variant : "#" + Colors.on_primary
+        font.bold: Hyprland.focusedWorkspace?.id !== index+1 && beingHovered ? true : false
+        color: Hyprland.focusedWorkspace?.id !== index+1 && beingHovered ? "#" + Color.colors.on_secondary_fixed_variant : "#" + Color.colors.on_primary
         MouseArea {
           anchors.fill: parent
           hoverEnabled: true
@@ -37,9 +37,9 @@ Rectangle {
   Text {
     id: activeWS
     text: ""
-    font.pointSize: 20
+    font.pointSize: 18
     font.family: "icomoon"
-    color: "#" + Colors.primary_fixed_dim
+    color: "#" + Color.colors.primary_fixed_dim
     x: wsRepeater.itemAt(Hyprland.focusedWorkspace?.id-1 ?? 0)?.x ?? 0
     property real currentX: 0
     Behavior on x {

@@ -1,14 +1,16 @@
 //@ pragma Env QS_NO_RELOAD_POPUP=1
+//@ pragma IconTheme WhiteSur-dark
 
 import Quickshell
 import QtQuick
 import QtQuick.Shapes
 import Quickshell.Hyprland
 import Quickshell.Wayland
+import Quickshell.Io
 import Quickshell.Services.Pipewire
 
 Variants {
-  model: Quickshell.screens;
+  model: Quickshell.screens
   delegate: Component {
     PanelWindow {
       required property var modelData
@@ -21,17 +23,30 @@ Variants {
       anchors.bottom: true
       color: "transparent"
 
+      Process {
+        command: ["bash", "-c", "echo ~/.current_wallpaper | entr matugen image ~/.current_wallpaper -t scheme-fruit-salad"]
+        running: true
+      }
+
       PwObjectTracker {
         objects: [ Pipewire.defaultAudioSink ]
       }
 
       Image {
+        id: wall
         asynchronous: true
         anchors.centerIn: parent
         anchors.fill: parent
         source: Quickshell.env("HOME") + "/.current_wallpaper"
         fillMode: Image.PreserveAspectCrop
-        cache: false
+        retainWhileLoading: true
+        Connections {
+          target: Color
+          function onImageChanged() {
+            wall.source=""
+            wall.source=Quickshell.env("HOME") + "/.current_wallpaper"
+          }
+        }
       }
 
       LunarClock {
@@ -46,7 +61,7 @@ Variants {
         anchors.left: true
         anchors.top: true
         anchors.bottom: true
-        implicitWidth: 45
+        implicitWidth: 40
 
         color: "transparent"
       }
@@ -119,10 +134,10 @@ Variants {
           ShapePath {
             property bool popUpControl: false
             id: mainBarfoo
-            strokeColor: "#" + Colors.on_primary_fixed_variant
-            fillColor: "#99" + Colors.primary
+            strokeColor: "#" + Color.colors.on_primary_fixed_variant
+            fillColor: "#99" + Color.colors.primary
             strokeWidth: 3
-            startX: 45; startY: 0;
+            startX: leftBar.width; startY: 0;
             PathLine { relativeX: 0; relativeY: -(leftBar.height-topBar.height)-3+30+(-jotaro.relativeY)+(-doraemon.relativeY)+(-jodio.relativeY) }
             PathArc {
               relativeX: 30
@@ -172,12 +187,12 @@ Variants {
           id: logoText
           property bool beingHovered: false
           property bool beingHovered2: false
-          y: 5
-          x: 5
+          y: 4.4
+          x: 4.4
           text: ""
           font.family: "icomoon"
-          color: beingHovered ? "#" + Colors.on_secondary_fixed_variant : "#" + Colors.on_primary
-          font.pointSize: beingHovered ? 40.3 : 40
+          color: beingHovered ? "#" + Color.colors.on_secondary_fixed_variant : "#" + Color.colors.on_primary
+          font.pointSize: beingHovered ? 36 : 35.5
           MouseArea {
             hoverEnabled: true
             anchors.fill: parent
@@ -197,22 +212,21 @@ Variants {
         Workspaces {
           anchors.top: parent.top
           anchors.left: parent.left
-          anchors.topMargin: 8
-          anchors.leftMargin: 85
+          anchors.topMargin: 5.7
+          anchors.leftMargin: 75
         }
         Text {
-          y: 2
           anchors.horizontalCenter: parent.horizontalCenter
           text: ""
           font.family: "icomoon"
-          color: "#" + Colors.on_primary
-          font.pointSize: 28
+          color: "#" + Color.colors.on_primary
+          font.pointSize: 26
           Rectangle {
             anchors.centerIn: parent
-            height: 42
+            height: topBar.height
             width: 200
             radius: height/2
-            color: "#" + Colors.on_secondary_fixed_variant
+            color: "#" + Color.colors.on_secondary_fixed_variant
             opacity: 0.0
             MouseArea {
               anchors.fill: parent
@@ -233,6 +247,11 @@ Variants {
           width: akuma.relativeX+jotaro.radiusX+jodio.radiusX
         }
         Osd {}
+        Notification {
+          anchors.top: parent.top
+          anchors.right: parent.right
+          anchors.topMargin: topBar.height
+        }
       }
     }
   }

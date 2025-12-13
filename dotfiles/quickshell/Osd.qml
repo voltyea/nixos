@@ -39,7 +39,7 @@ Scope {
         id: brightness
         height: 50
         width: 250
-        color: "#" + Colors.primary
+        color: "#" + Color.colors.primary
         radius: height/2
         NumberAnimation on opacity {
           id: brightnessOpacity
@@ -56,7 +56,7 @@ Scope {
           anchors.left: parent.left
           anchors.leftMargin: 8
           text: "󰃠"
-          color: "#" + Colors.on_primary
+          color: "#" + Color.colors.on_primary
           font.pointSize: 20
           font.family: "Symbols Nerd Font"
           rotation: brightnessBar.width
@@ -67,13 +67,13 @@ Scope {
           height: 7
           width: 190
           radius: height/2
-          color: "#" + Colors.on_secondary_fixed_variant
+          color: "#" + Color.colors.inverse_primary
           Rectangle {
             id: brightnessBar
             height: parent.height
             width: Brightness.currentBrightness/Brightness.maxBrightness*parent.width
             radius: height/2
-            color: "#" + Colors.on_primary
+            color: "#" + Color.colors.on_primary
           }
         }
       }
@@ -96,7 +96,7 @@ Scope {
         id: volume
         height: 50
         width: 250
-        color: "#" + Colors.primary
+        color: "#" + Color.colors.primary
         radius: height/2
         NumberAnimation on opacity {
           id: volumeOpacity
@@ -113,7 +113,7 @@ Scope {
           anchors.left: parent.left
           anchors.leftMargin: 8
           text: Pipewire.defaultAudioSink.audio.muted ? "" : ""
-          color: "#" + Colors.on_primary
+          color: "#" + Color.colors.on_primary
           font.pointSize: 17.5
           font.family: "Symbols Nerd Font"
         }
@@ -123,13 +123,13 @@ Scope {
           height: 7
           width: 190
           radius: height/2
-          color: "#" + Colors.on_secondary_fixed_variant
+          color: "#" + Color.colors.inverse_primary
           Rectangle {
             id: volumeBar
             height: parent.height
             width: parent.width*(Pipewire.defaultAudioSink?.audio.volume ?? 0)
             radius: height/2
-            color: "#" + Colors.on_primary
+            color: "#" + Color.colors.on_primary
           }
         }
       }

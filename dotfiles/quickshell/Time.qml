@@ -4,7 +4,7 @@ import Quickshell
 import QtQuick
 
 Singleton {
-  readonly property real synodicDays: {
+readonly property real synodicDays: {
     const date = clock.date
     const synodicMonth = 29.53059
     const referenceNewMoon = new Date(Date.UTC(2000, 0, 6, 18, 14))

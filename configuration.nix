@@ -1,4 +1,3 @@
-
 { config, pkgs, lib, ... }:
 
 {
@@ -118,6 +117,10 @@
       gparted
       hyprpolkitagent
       kdePackages.qtimageformats
+      aircrack-ng
+      wirelesstools
+      spotify
+      expect
       ];
 
   fonts.packages = with pkgs; [
@@ -153,6 +156,12 @@
 
   services.gvfs.enable = true;
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.settings = {
+    General = {
+      FastConnectable = true;
+      JustWorksRepairing = "always";
+    };
+  };
 
   system.userActivationScripts = {
     user = "volty";
