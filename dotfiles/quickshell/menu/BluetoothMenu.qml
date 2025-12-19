@@ -5,6 +5,8 @@ import QtQuick.Controls
 import Quickshell.Bluetooth
 import Quickshell.Widgets
 import QtQuick.Effects
+import qs.widgets
+import qs.colors
 
 Rectangle {
   id: bluetooth

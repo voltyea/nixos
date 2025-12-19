@@ -3,6 +3,9 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import Quickshell.Io
+import qs.widgets
+import qs.colors
+import qs.system.network
 
 Rectangle {
   id: network

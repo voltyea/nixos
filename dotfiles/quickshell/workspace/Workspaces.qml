@@ -4,6 +4,7 @@ import QtQuick
 import Quickshell.Hyprland
 import QtQuick.Shapes
 import QtQuick.Layouts
+import qs.colors
 
 Rectangle {
   property int previousWorkspaceId: 0

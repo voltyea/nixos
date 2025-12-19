@@ -2,6 +2,8 @@ import Quickshell
 import QtQuick
 import Quickshell.Services.Pipewire
 import Quickshell.Wayland
+import qs.colors
+import qs.utils
 
 Scope {
   Connections {

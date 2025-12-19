@@ -113,14 +113,11 @@
       hyprpicker
       libnotify
       starship
-      oh-my-posh
-      gparted
       hyprpolkitagent
       kdePackages.qtimageformats
-      aircrack-ng
       wirelesstools
       spotify
-      expect
+      glslviewer
       ];
 
   fonts.packages = with pkgs; [

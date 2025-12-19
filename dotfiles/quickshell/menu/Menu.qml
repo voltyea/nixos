@@ -1,10 +1,13 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Shapes
 import Quickshell.Services.Pipewire
-import QtQuick.Controls
-import Quickshell.Io
 import Quickshell.Bluetooth
+import qs.colors
+import qs.system.network
+import qs.widgets
+import qs.utils
 
 Rectangle {
   id: parentRectangle
@@ -12,22 +15,22 @@ Rectangle {
   Component.onCompleted: brightnessSliderTip.x=Brightness.currentBrightness/Brightness.maxBrightness*brightnessSlider.width
   color: "transparent"
 
-  BluetoothControl {
-    id: bluetoothControl
+  BluetoothMenu {
+    id: bluetoothMenu
     anchors.right: parent.right
     height: parent.height
     width: 0
   }
 
-  NetworkControl {
-    id: networkControl
-    anchors.right: bluetoothControl.left
+  NetworkMenu {
+    id: networkMenu
+    anchors.right: bluetoothMenu.left
     height: parent.height
     width: 0
   }
 
   Rectangle {
-    anchors.right: networkControl.left
+    anchors.right: networkMenu.left
     height: parent.height
     width: parent.width
     color: "transparent"
@@ -49,32 +52,38 @@ Rectangle {
       rowSpacing: 10
       columns: 2
       Rectangle {
+        id: some_rand_id
         height: 60
         width: 200
         radius: height/2
         color: "#" + Color.colors.primary
-        Rectangle {
-          anchors.right: parent.right
+        Shape {
+          id: arrow_shape
+          property bool hovered: false
           height: parent.height
           width: 30
-          topRightRadius: parent.radius
-          bottomRightRadius: parent.radius
-          color: "transparent"
-          MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onEntered: arrow.color="#" + Color.colors.on_secondary_fixed_variant
-            onExited: arrow.color="#" + Color.colors.on_primary
-            onClicked: networkControl.width=parentRectangle.width
+          asynchronous: true
+          antialiasing: true
+          smooth: true
+          preferredRendererType: Shape.CurveRenderer
+          anchors.right: parent.right
+          ShapePath {
+            fillColor: arrow_shape.hovered ? "#33" + Color.colors.on_primary_fixed_variant : "#00" + Color.colors.on_primary_fixed_variant
+            strokeWidth: 0
+            startX: 0; startY: 0
+            PathArc {
+              relativeX: 0
+              relativeY: arrow_shape.height
+              radiusX: 30
+              radiusY: radiusX
+            }
           }
           Text {
-            id: arrow
             anchors.centerIn: parent
             text: "<b>⟩</b>"
             font.family: "SF Pro Rounded"
             color: "#" + Color.colors.on_primary
             font.pointSize: 20
-            z: -1
           }
           Rectangle {
             anchors.right: parent.left
@@ -84,6 +93,13 @@ Rectangle {
             anchors.rightMargin: -width/2
             radius: width/2
             color: "#" + Color.colors.on_primary
+          }
+          MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            onEntered: arrow_shape.hovered=true
+            onExited: arrow_shape.hovered=false
+            onClicked: networkMenu.width=parentRectangle.width
           }
         }
         Rectangle {
@@ -142,33 +158,33 @@ Rectangle {
         width: 200
         radius: height/2
         color: "#" + Color.colors.primary
-        Rectangle {
-          anchors.right: parent.right
+        Shape {
+          id: arrow_shape0
+          property bool hovered: false
           height: parent.height
           width: 30
-          topRightRadius: parent.radius
-          bottomRightRadius: parent.radius
-          color: "transparent"
-          MouseArea {
-            anchors.fill: parent
-            hoverEnabled: true
-            onEntered: arrow0.color="#" + Color.colors.on_secondary_fixed_variant
-            onExited: arrow0.color="#" + Color.colors.on_primary
-            onClicked: {
-              bluetoothControl.width=parentRectangle.width
-              Bluetooth.defaultAdapter.discoverable=true
-              Bluetooth.defaultAdapter.discoverableTimeout=10
-              Bluetooth.defaultAdapter.discovering=true
+          asynchronous: true
+          antialiasing: true
+          smooth: true
+          preferredRendererType: Shape.CurveRenderer
+          anchors.right: parent.right
+          ShapePath {
+            fillColor: arrow_shape0.hovered ? "#33" + Color.colors.on_primary_fixed_variant : "#00" + Color.colors.on_primary_fixed_variant
+            strokeWidth: 0
+            startX: 0; startY: 0
+            PathArc {
+              relativeX: 0
+              relativeY: arrow_shape0.height
+              radiusX: 30
+              radiusY: radiusX
             }
           }
           Text {
-            id: arrow0
             anchors.centerIn: parent
             text: "<b>⟩</b>"
             font.family: "SF Pro Rounded"
             color: "#" + Color.colors.on_primary
             font.pointSize: 20
-            z: -1
           }
           Rectangle {
             anchors.right: parent.left
@@ -178,6 +194,18 @@ Rectangle {
             anchors.rightMargin: -width/2
             radius: width/2
             color: "#" + Color.colors.on_primary
+          }
+          MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            onEntered: arrow_shape0.hovered=true
+            onExited: arrow_shape0.hovered=false
+            onClicked: {
+              bluetoothMenu.width=parentRectangle.width
+              Bluetooth.defaultAdapter.discoverable=true
+              Bluetooth.defaultAdapter.discoverableTimeout=10
+              Bluetooth.defaultAdapter.discovering=true
+            }
           }
         }
         Rectangle {

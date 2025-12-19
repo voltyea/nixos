@@ -1,6 +1,7 @@
 import Quickshell
 import QtQuick
 import QtQuick.Shapes
+import qs.colors
 
 Rectangle {
   id: parentRect
@@ -69,7 +70,7 @@ Rectangle {
     transform: Rotation {
       origin.x: clockHandRect.width/2
       origin.y: clockHandRect.height-7
-      angle: Time.synodicDays/29.53059*360+16
+      angle: Moonphase.moonAngle
     }
     Shape {
       id: clockHand
