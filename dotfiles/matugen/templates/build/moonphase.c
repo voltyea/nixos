@@ -10,7 +10,7 @@ static const char *MoonPhaseName(double angle)
   if (angle < 202.5) return "󰽢 ";
   if (angle < 247.5) return "󰽦";
   if (angle < 292.5) return "󰽣";
-  if (angle < 355.5) return "󰽥";
+  if (angle < 359.5) return "󰽥";
   return "󰽤 ";
 }
 

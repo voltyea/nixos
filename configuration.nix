@@ -79,6 +79,7 @@
   qt.enable = true;
   programs.fish.enable = true;
   programs.nix-ld.enable = true;
+  programs.mango.enable = true;
   programs.hyprland.enable = true;
   programs.neovim.enable = true;
   programs.git.enable = true;
@@ -115,6 +116,10 @@
       starship
       hyprpolkitagent
       kdePackages.qtimageformats
+      kdePackages.qtwayland
+      cmake
+      gnumake
+      ninja
       wirelesstools
       spotify
       glslviewer
@@ -163,13 +168,14 @@
   system.userActivationScripts = {
     user = "volty";
     text = ''
-      TARGET_DIR="/home/volty/.config/"
-      FILES="/home/volty/dotfiles/hypr/
-      /home/volty/dotfiles/kitty/
-      /home/volty/dotfiles/nvim/
-      /home/volty/dotfiles/fish/
-      /home/volty/dotfiles/matugen/
-      /home/volty/dotfiles/quickshell/"
+      TARGET_DIR="~/.config"
+      FILES="~/dotfiles/hypr
+      ~/dotfiles/kitty
+      ~/dotfiles/nvim
+      ~/dotfiles/fish
+      ~/dotfiles/matugen
+      ~/dotfiles/quickshell
+      ~/dotfiles/mango"
 
       for SRC in $FILES; do
         BASENAME=$(basename "$SRC")

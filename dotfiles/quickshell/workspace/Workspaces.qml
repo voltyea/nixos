@@ -23,7 +23,7 @@ Rectangle {
         text: ""
         font.pointSize: 18
         font.family: "icomoon"
-        font.bold: Hyprland.focusedWorkspace?.id !== index+1 && beingHovered ? true : false
+        font.bold: Hyprland.focusedWorkspace?.id !== index+1 && beingHovered
         color: Hyprland.focusedWorkspace?.id !== index+1 && beingHovered ? "#" + Color.colors.on_secondary_fixed_variant : "#" + Color.colors.on_primary
         MouseArea {
           anchors.fill: parent

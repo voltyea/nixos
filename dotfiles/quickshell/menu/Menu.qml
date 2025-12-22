@@ -53,15 +53,15 @@ Rectangle {
       columns: 2
       Rectangle {
         id: some_rand_id
-        height: 60
-        width: 200
+        height: 55
+        width: 190
         radius: height/2
         color: "#" + Color.colors.primary
         Shape {
           id: arrow_shape
           property bool hovered: false
           height: parent.height
-          width: 30
+          width: 27.5
           asynchronous: true
           antialiasing: true
           smooth: true
@@ -74,7 +74,7 @@ Rectangle {
             PathArc {
               relativeX: 0
               relativeY: arrow_shape.height
-              radiusX: 30
+              radiusX: 27.5
               radiusY: radiusX
             }
           }
@@ -83,11 +83,11 @@ Rectangle {
             text: "<b>⟩</b>"
             font.family: "SF Pro Rounded"
             color: "#" + Color.colors.on_primary
-            font.pointSize: 20
+            font.pointSize: 19
           }
           Rectangle {
             anchors.right: parent.left
-            height: 50
+            height: 45
             width: 2
             anchors.verticalCenter: parent.verticalCenter
             anchors.rightMargin: -width/2
@@ -122,14 +122,14 @@ Rectangle {
             text: ""
             font.family: "icomoon"
             color: "#" + Color.colors.outline
-            font.pointSize: 20
+            font.pointSize: 19
             z: -1
             Text {
               anchors.centerIn: parent
               text: !Network.wifiEnabled ? "" : Network.activeSignalStrength < 33.33 ? "" : Network.activeSignalStrength >= 33.33 && Network.activeSignalStrength < 66.66 ? "" : ""
               font.family: "icomoon"
               color: "#" + Color.colors.on_primary
-              font.pointSize: 20
+              font.pointSize: 19
             }
           }
         }
@@ -138,9 +138,9 @@ Rectangle {
           anchors.horizontalCenterOffset: 4
           horizontalAlignment: Text.AlignHCenter
           verticalAlignment: Text.AlignVCenter
-          width: 100
-          maxFontSize: 19
-          minFontSize: 9
+          width: 95
+          maxFontSize: 18
+          minFontSize: 8
           text: Network.activeSsid === "" ? "Wifi" : Network.activeSsid
           color: "#" + Color.colors.on_primary
           fontFamily: "SF Pro Rounded"
@@ -148,21 +148,21 @@ Rectangle {
         }
       }
       Rectangle {
-        height: 60
-        width: 200
+        height: 55
+        width: 190
         radius: height/2
         color: "#" + Color.colors.primary
       }
       Rectangle {
-        height: 60
-        width: 200
+        height: 55
+        width: 190
         radius: height/2
         color: "#" + Color.colors.primary
         Shape {
           id: arrow_shape0
           property bool hovered: false
           height: parent.height
-          width: 30
+          width: 27.5
           asynchronous: true
           antialiasing: true
           smooth: true
@@ -175,7 +175,7 @@ Rectangle {
             PathArc {
               relativeX: 0
               relativeY: arrow_shape0.height
-              radiusX: 30
+              radiusX: 27.5
               radiusY: radiusX
             }
           }
@@ -184,11 +184,11 @@ Rectangle {
             text: "<b>⟩</b>"
             font.family: "SF Pro Rounded"
             color: "#" + Color.colors.on_primary
-            font.pointSize: 20
+            font.pointSize: 19
           }
           Rectangle {
             anchors.right: parent.left
-            height: 50
+            height: 45
             width: 2
             anchors.verticalCenter: parent.verticalCenter
             anchors.rightMargin: -width/2
@@ -228,7 +228,7 @@ Rectangle {
             text: Bluetooth.defaultAdapter.enabled ? "󰂯" : "󰂲"
             font.family: "Symbols Nerd Font"
             color: "#" + Color.colors.on_primary
-            font.pointSize: 20
+            font.pointSize: 19
           }
         }
         AutoFitText {
@@ -236,9 +236,9 @@ Rectangle {
           anchors.horizontalCenterOffset: 3
           horizontalAlignment: Text.AlignHCenter
           verticalAlignment: Text.AlignVCenter
-          width: 100
-          maxFontSize: 19
-          minFontSize: 8
+          width: 95
+          maxFontSize: 18
+          minFontSize: 7
           text: Bluetooth.defaultAdapter.devices.values.length === 0 ? "Bluetooth" : Bluetooth.defaultAdapter.devices.values[0].connected ? Bluetooth.defaultAdapter.devices.values[0].name : "Bluetooth"
           color: "#" + Color.colors.on_primary
           fontFamily: "SF Pro Rounded"
@@ -246,8 +246,8 @@ Rectangle {
         }
       }
       Rectangle {
-        height: 60
-        width: 200
+        height: 55
+        width: 190
         radius: height/2
         color: "#" + Color.colors.primary
       }

@@ -105,28 +105,27 @@ ShellRoot {
     anchors.left: true
     anchors.top: true
     anchors.bottom: true
-    margins.top: topBar.height
-    margins.left: leftBar.width
     color: "transparent"
     MouseArea {
       hoverEnabled: true
       anchors.fill: parent
       onEntered: {
-        mainBarfoo.popUpMenu=false
+        logoText.opened=false
+        menuOpenAnim.stop()
+        menuCloseAnim.start()
       }
     }
     mask: Region {
-      intersection: mainBarfoo.popUpMenu ? Intersection.Subtract : Intersection.Combine
+      intersection: logoText.opened ? Intersection.Subtract : Intersection.Combine
       Region {
-        height: -doraemon.relativeY+(-jotaro.radiusY)+(-jodio.radiusY)
-        width: akuma.relativeX+jotaro.radiusX+jodio.radiusX
+        item: menu
       }
     }
   }
 
   PanelWindow {
     id: barThingy
-    focusable: mainBarfoo.popUpMenu ? true : false
+    focusable: logoText.opened ? true : false
     WlrLayershell.namespace: "qsBar"
     mask: Region {
       Region {
@@ -135,7 +134,7 @@ ShellRoot {
       }
       Region {
         height: barThingy.height
-        width: leftBar.width
+        width: topBar.height
       }
       Region {
         item: menu
@@ -148,136 +147,154 @@ ShellRoot {
     anchors.bottom: true
     color: "transparent"
     Shape {
-      id: mainBar
+      id: barShape
       asynchronous: true
       antialiasing: true
       smooth: true
+      height: barThingy.height
+      containsMode: Shape.FillContains
+      clip: true
+      width: barThingy.width
       preferredRendererType: Shape.CurveRenderer
-      anchors.left: parent.left
-      anchors.bottom: parent.bottom
-      anchors.bottomMargin: -3
       ShapePath {
-        id: mainBarfoo
-        property bool popUpMenu: false
+        id: barShapePath
+        property int extra: topBar.height
         strokeColor: "#" + Color.colors.on_primary_fixed_variant
         fillColor: "#99" + Color.colors.primary
         strokeWidth: 3
-        startX: leftBar.width; startY: 0
-        PathLine { relativeX: 0; relativeY: -(leftBar.height-topBar.height)-3+30+(-jotaro.relativeY)+(-doraemon.relativeY)+(-jodio.relativeY) }
+        startX: -extra
+        startY: startX
+        PathLine {
+          x: barThingy.width+barShapePath.extra
+          y: 0
+        }
+        PathLine {
+          relativeX: 0
+          y: topBar.height
+        }
+        PathLine {
+          relativeY: 0
+          relativeX: -(barThingy.width-topBar.height-menu.width)
+        }
         PathArc {
-          relativeX: 30
-          relativeY: -relativeX
-          radiusX: 30
+          direction: PathArc.Counterclockwise
+          relativeY: Math.min(menu.height, topBar.height)
+          relativeX: -relativeY
+          radiusX: relativeY
           radiusY: radiusX
         }
         PathLine {
-          id: akuma
-          relativeX: mainBarfoo.popUpMenu ? 380:0
-          relativeY: 0
-          Behavior on relativeX {
-            NumberAnimation {
-              alwaysRunToEnd: false
-              duration: akuma.relativeX > 0 ? 300 : 400
-              easing.type: akuma.relativeX > 0 ? Easing.InOutCubic : Easing.OutBack
-            }
-          }
+          relativeY: Math.min(menu.height, 272-topBar.height*2)
+          relativeX: 0
         }
         PathArc {
-          id: jotaro
-          direction: PathArc.Counterclockwise
-          relativeX: Math.min(akuma.relativeX, 30)
-          relativeY: -relativeX
-          radiusX: -relativeY
-          radiusY: -radiusX
+          relativeY: Math.min(menu.height, topBar.height)
+          relativeX: -relativeY
+          radiusX: relativeY
+          radiusY: radiusX
         }
         PathLine {
-          id: doraemon
-          relativeX: 0
-          relativeY: Math.min(akuma.relativeX, 220)*(-1)
+          x: topBar.height*2
+          relativeY: 0
         }
         PathArc {
-          id: jodio
-          relativeX: jotaro.relativeX
-          relativeY: -relativeX
-          radiusX: -relativeY
-          radiusY: -radiusX
+          direction: PathArc.Counterclockwise
+          relativeY: topBar.height
+          relativeX: -relativeY
+          radiusX: relativeY
+          radiusY: radiusX
         }
-        PathLine { relativeX: barThingy.width-30-jotaro.relativeX-jodio.relativeX-akuma.relativeX+20; relativeY: 0 }
-        PathLine { relativeX: 0; relativeY: -topBar.height-3 }
-        PathLine { relativeX: -barThingy.width*2; relativeY: 0 }
-        PathLine { relativeX: 0; relativeY: barThingy.height+3 }
-      }
-    }
-    Text {
-      id: logoText
-      property bool beingHovered: false
-      property bool beingHovered2: false
-      y: 4.4
-      x: 4.4
-      text: ""
-      font.family: "icomoon"
-      color: beingHovered ? "#" + Color.colors.on_secondary_fixed_variant : "#" + Color.colors.on_primary
-      font.pointSize: beingHovered ? 36 : 35.5
-      MouseArea {
-        hoverEnabled: true
-        anchors.fill: parent
-        onExited: parent.beingHovered=false
-        onEntered: {
-          parent.beingHovered=true
-          showTimer.start()
+        PathLine {
+          relativeX: 0
+          y: barThingy.height+barShapePath.extra
         }
-        Timer {
-          id: showTimer
-          interval: 300
-          running: false
-          onTriggered: mainBarfoo.popUpMenu=true
+        PathLine {
+          relativeY: 0
+          x: -barShapePath.extra
         }
       }
-    }
-    Workspaces {
-      anchors.top: parent.top
-      anchors.left: parent.left
-      anchors.topMargin: 5.7
-      anchors.leftMargin: 75
-    }
-    Text {
-      anchors.horizontalCenter: parent.horizontalCenter
-      text: ""
-      font.family: "icomoon"
-      color: "#" + Color.colors.on_primary
-      font.pointSize: 26
-      Rectangle {
-        anchors.centerIn: parent
-        height: topBar.height
-        width: 200
-        radius: height/2
-        color: "#" + Color.colors.on_secondary_fixed_variant
-        opacity: 0.0
+      Text {
+        id: logoText
+        property bool hovered: false
+        property bool opened: false
+        y: 6.5
+        x: y
+        text: ""
+        font.family: "icomoon"
+        color: hovered ? "#" + Color.colors.on_secondary_fixed_variant : "#" + Color.colors.on_primary
+        font.pointSize: hovered ? 36 : 35.5
         MouseArea {
-          anchors.fill: parent
           hoverEnabled: true
-          onEntered: parent.opacity = 0.1
-          onExited: parent.opacity = 0.0
+          anchors.fill: parent
+          onExited: parent.hovered=false
+          onEntered: {
+            parent.hovered=true
+            logoText.opened=true
+            menuCloseAnim.stop()
+            menuOpenAnim.start()
+          }
         }
       }
-    }
-    Loader {
-      id: menu
-      active: -doraemon.relativeY+(-jotaro.radiusY)+(-jodio.radiusY) === 0 && akuma.relativeX+jotaro.radiusX+jodio.radiusX === 0 ? false : true
-      asynchronous: true
-      source: "menu/Menu.qml"
-      x: leftBar.width
-      y: topBar.height
-      height: -doraemon.relativeY+(-jotaro.radiusY)+(-jodio.radiusY)
-      width: akuma.relativeX+jotaro.radiusX+jodio.radiusX
-    }
-    Osd {}
+      Workspaces {
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.topMargin: 5.7
+        anchors.leftMargin: 75
+      }
+      Text {
+        anchors.horizontalCenter: parent.horizontalCenter
+        text: ""
+        font.family: "icomoon"
+        color: "#" + Color.colors.on_primary
+        font.pointSize: 26
+        Rectangle {
+          anchors.centerIn: parent
+          height: topBar.height
+          width: 200
+          radius: height/2
+          color: "#" + Color.colors.on_secondary_fixed_variant
+          opacity: 0.0
+          MouseArea {
+            anchors.fill: parent
+            hoverEnabled: true
+            onEntered: parent.opacity = 0.1
+            onExited: parent.opacity = 0.0
+          }
+        }
+      }
+      Loader {
+        id: menu
+        active: logoText.hovered || logoText.opened || height > 0
+        asynchronous: true
+        source: "menu/Menu.qml"
+        x: topBar.height
+        y: topBar.height
+        width: 440
+        NumberAnimation on height {
+          id: menuOpenAnim
+          alwaysRunToEnd: false
+          running: false
+          duration: 600
+          to: 272
+          easing.type: Easing.OutBack
+        }
+        NumberAnimation on height {
+          id: menuCloseAnim
+          alwaysRunToEnd: false
+          running: false
+          duration: 600
+          to: 0
+          easing.type: Easing.InBack
+        }
+      }
 
-    Notification {
-      anchors.top: parent.top
-      anchors.right: parent.right
-      anchors.topMargin: topBar.height
+      Osd {}
+
+      Notification {
+        anchors.top: parent.top
+        anchors.right: parent.right
+        anchors.topMargin: topBar.height
+      }
     }
   }
-
 }
