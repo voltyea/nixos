@@ -70,7 +70,7 @@ ShellRoot {
     anchors.bottom: true
     color: "transparent"
 
-    Shangles {}
+    Frills {}
 
     LunarClock {
       anchors.right: parent.right
@@ -161,6 +161,7 @@ ShellRoot {
         property int extra: topBar.height
         strokeColor: "#" + Color.colors.on_primary_fixed_variant
         fillColor: "#99" + Color.colors.primary
+        capStyle: ShapePath.FlatCap
         strokeWidth: 3
         startX: -extra
         startY: startX
@@ -178,17 +179,34 @@ ShellRoot {
         }
         PathArc {
           direction: PathArc.Counterclockwise
-          relativeY: Math.min(menu.height, topBar.height)
+          relativeY: Math.min(animLine.relativeY, topBar.height)
           relativeX: -relativeY
           radiusX: relativeY
           radiusY: radiusX
         }
         PathLine {
-          relativeY: Math.min(menu.height, 272-topBar.height*2)
+          id: animLine
+          relativeY: 0
+          NumberAnimation on relativeY {
+            id: menuOpenAnim
+            alwaysRunToEnd: false
+            running: false
+            duration: 350
+            to: 192
+            easing.type: Easing.OutBack
+          }
+          NumberAnimation on relativeY {
+            id: menuCloseAnim
+            alwaysRunToEnd: false
+            running: false
+            duration: 400
+            to: 0
+            easing.type: Easing.InBack
+          }
           relativeX: 0
         }
         PathArc {
-          relativeY: Math.min(menu.height, topBar.height)
+          relativeY: Math.min(animLine.relativeY, topBar.height)
           relativeX: -relativeY
           radiusX: relativeY
           radiusY: radiusX
@@ -270,22 +288,7 @@ ShellRoot {
         x: topBar.height
         y: topBar.height
         width: 440
-        NumberAnimation on height {
-          id: menuOpenAnim
-          alwaysRunToEnd: false
-          running: false
-          duration: 600
-          to: 272
-          easing.type: Easing.OutBack
-        }
-        NumberAnimation on height {
-          id: menuCloseAnim
-          alwaysRunToEnd: false
-          running: false
-          duration: 600
-          to: 0
-          easing.type: Easing.InBack
-        }
+        height: animLine.relativeY+Math.min(animLine.relativeY, 80)
       }
 
       Osd {}

@@ -1,5 +1,4 @@
-{ pkgs }:
-
+{pkgs}:
 pkgs.stdenv.mkDerivation {
   name = "icomoon";
   src = ./icomoon.ttf;
@@ -9,4 +8,3 @@ pkgs.stdenv.mkDerivation {
     cp $src $out/share/fonts/ttf/
   '';
 }
-

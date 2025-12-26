@@ -257,6 +257,7 @@ Rectangle {
       anchors.horizontalCenter: parent.horizontalCenter
       anchors.bottom: parent.bottom
       anchors.bottomMargin: 20
+      z: -1
       RowLayout {
         spacing: 30
         Text {

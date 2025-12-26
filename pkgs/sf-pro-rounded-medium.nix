@@ -1,5 +1,4 @@
-{ pkgs }:
-
+{pkgs}:
 pkgs.stdenv.mkDerivation {
   name = "SF-Pro-Rounded-Medium";
   src = ./SF-Pro-Rounded-Medium.otf;
@@ -9,4 +8,3 @@ pkgs.stdenv.mkDerivation {
     cp $src $out/share/fonts/opentype/
   '';
 }
-
