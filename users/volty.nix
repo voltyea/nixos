@@ -30,31 +30,30 @@
       };
     }
   ];
-system.userActivationScripts = {
-  user = "volty";
-  text = ''
-    for src in "$HOME"/dotfiles/*; do
-      [ -e "$src" ] || continue
-      [ "$(basename "$src")" = "config" ] && continue
-      name="''${src##*/}"
-      dest="$HOME/$name"
-      if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
-        continue
-      fi
-      [ -e "$dest" ] && mv "$dest" "$dest.bak"
-      ln -s "$src" "$dest"
-    done
-    for src in "$HOME"/dotfiles/config/*; do
-      [ -e "$src" ] || continue
-      name="''${src##*/}"
-      dest="$HOME/.config/$name"
-      if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
-        continue
-      fi
-      [ -e "$dest" ] && mv "$dest" "$dest.bak"
-      ln -s "$src" "$dest"
-    done
-  '';
-};
+  system.userActivationScripts = {
+    user = "volty";
+    text = ''
+        link_dir() {
+          src_dir="$1"
+            dest_dir="$2"
+            skip_name="$3"
 
-  }
+            for src in "$src_dir"/*; do
+              [ -e "$src" ] || continue
+
+                name="''${src##*/}"
+                  [ -n "$skip_name" ] && [ "$name" = "$skip_name" ] && continue
+
+                  dest="$dest_dir/$name"
+
+                    [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ] && continue
+                    [ -e "$dest" ] && mv "$dest" "$dest.bak"
+                      ln -s "$src" "$dest"
+                        done
+        }
+
+      link_dir "$HOME/dotfiles"        "$HOME"         "config"
+        link_dir "$HOME/dotfiles/config" "$HOME/.config" ""
+    '';
+  };
+}
