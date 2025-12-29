@@ -31,7 +31,7 @@ success_symbol = "[● ](color1)"
 error_symbol = "[● ](color1)[](color4)"
 
 [custom.moon]
-command = "~/.config/matugen/templates/moonphase"
+command = "~/.config/matugen/templates/moon/moon"
 when = true
 shell = "bash"
 style = "bg:color6 fg:color1"

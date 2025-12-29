@@ -110,6 +110,8 @@
     glslviewer
     nwg-look
     alejandra
+    qt6.qtbase
+    qt6.qtdeclarative
   ];
 
   fonts.packages = with pkgs; [

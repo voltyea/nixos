@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="/qt/qml/Moon">/home/volty/.config/quickshell/decor/lunarclock/moon/build/Moon</file>
+
+  </qresource>
+</RCC>

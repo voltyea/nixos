@@ -10,7 +10,7 @@ import Quickshell.Io
 import Quickshell.Services.Pipewire
 import qs.notification
 import qs.decor
-import qs.decor.lunar_clock
+import qs.decor.lunarclock
 import qs.osd
 import qs.workspace
 import qs.colors

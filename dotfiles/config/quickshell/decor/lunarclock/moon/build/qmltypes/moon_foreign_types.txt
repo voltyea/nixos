@@ -1,0 +1,1 @@
+--foreign-types=/nix/store/zgpfg77x3nq1x6f7xlbg01g4ql21yn2w-qtdeclarative-6.10.1/metatypes/qt6qml_metatypes.json,/nix/store/zp6r9bxds1hldvkx1vbrk0d1ady17zhh-qtbase-6.10.1/metatypes/qt6core_metatypes.json,/nix/store/zp6r9bxds1hldvkx1vbrk0d1ady17zhh-qtbase-6.10.1/metatypes/qt6network_metatypes.json
