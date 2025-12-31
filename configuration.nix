@@ -82,7 +82,6 @@
     bibata-cursors
     tree
     clang
-    gcc
     unzip
     matugen
     cliphist
@@ -108,8 +107,6 @@
     glslviewer
     nwg-look
     alejandra
-    qt6.qtbase
-    qt6.qtdeclarative
     qt6.qtimageformats
     (qt6.callPackage ./pkgs/luna/moon/moon.nix {})
   ];
