@@ -1,8 +1,0 @@
--I
-/home/volty/.config/quickshell/decor/lunarclock/moon/build
--I
-/nix/store/zgpfg77x3nq1x6f7xlbg01g4ql21yn2w-qtdeclarative-6.10.1/lib/qt-6/qml
---resource
-/home/volty/.config/quickshell/decor/lunarclock/moon/build/.qt/rcc/qmake_Moon.qrc
---module
-Moon

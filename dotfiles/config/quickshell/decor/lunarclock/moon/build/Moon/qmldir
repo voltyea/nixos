@@ -1,7 +1,0 @@
-module Moon
-linktarget moonplugin
-optional plugin moonplugin
-classname MoonPlugin
-typeinfo moon.qmltypes
-prefer :/qt/qml/Moon/
-

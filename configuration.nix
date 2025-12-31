@@ -100,8 +100,6 @@
     libnotify
     starship
     hyprpolkitagent
-    kdePackages.qtimageformats
-    kdePackages.qtwayland
     cmake
     gnumake
     ninja
@@ -112,6 +110,8 @@
     alejandra
     qt6.qtbase
     qt6.qtdeclarative
+    qt6.qtimageformats
+    (qt6.callPackage ./pkgs/luna/moon/moon.nix {})
   ];
 
   fonts.packages = with pkgs; [
@@ -120,9 +120,9 @@
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
-    (import ./pkgs/sf-pro-rounded-medium.nix {inherit pkgs;})
-    (import ./pkgs/ligasfmononerdfont-medium.nix {inherit pkgs;})
-    (import ./pkgs/icomoon.nix {inherit pkgs;})
+    (callPackage ./pkgs/fonts/sf-pro/sf-pro-rounded-medium.nix {})
+    (callPackage ./pkgs/fonts/ligasf/ligasfmononerdfont-medium.nix {})
+    (callPackage ./pkgs/fonts/icomoon/icomoon.nix {})
   ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];

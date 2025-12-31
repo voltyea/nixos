@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/qt/qml/Moon">
-    <file alias="qmldir">/home/volty/.config/quickshell/decor/lunarclock/moon/build/Moon/qmldir</file>
-  </qresource>
-</RCC>
-

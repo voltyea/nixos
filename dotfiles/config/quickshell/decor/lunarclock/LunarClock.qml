@@ -1,7 +1,7 @@
 import Quickshell
 import QtQuick
 import QtQuick.Shapes
-import Moon
+import Luna.Moon
 import qs.colors
 
 Rectangle {
