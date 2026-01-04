@@ -34,18 +34,3 @@ QVariantList Network::networks() const {
   }
   return result;
 }
-
-void Network::setEnable(bool enabled) {
-  if (!g_client)
-    return;
-  nm_client_dbus_set_property(
-      g_client,
-      "/org/freedesktop/NetworkManager",
-      "org.freedesktop.NetworkManager",
-      "WirelessEnabled",
-      g_variant_new_boolean(enabled),
-      -1,
-      nullptr,
-      nullptr,
-      nullptr);
-}
