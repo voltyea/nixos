@@ -52,7 +52,7 @@ Rectangle {
     ColumnLayout {
       spacing: 5
       Repeater {
-        model: console.log(Network.networks)
+        model: Network.networks
         Rectangle {
           property bool beingHovered: false
           height: 50
@@ -75,7 +75,7 @@ Rectangle {
             width: 100
             maxFontSize: 20
             minFontSize: 9
-            text: console.log(Network.active)
+            text: modelData.ssid
             color: modelData.active ? "#" + Color.colors.primary : "#" + Color.colors.on_primary
             fontFamily: "SF Pro Rounded"
             bold: true
@@ -114,7 +114,7 @@ Rectangle {
             font.pointSize: 20
             Text {
               anchors.centerIn: parent
-              text: modelData.signalStrength < 33.33 ? "" : modelData.signalStrength >= 33.33 && modelData.signalStrength < 66.66 ? "" : ""
+              text: modelData.strength < 33.33 ? "" : modelData.strength >= 33.33 && modelData.strength < 66.66 ? "" : ""
               font.family: "icomoon"
               color: modelData.active ? "#" + Color.colors.primary : "#" + Color.colors.on_primary
               font.pointSize: 20

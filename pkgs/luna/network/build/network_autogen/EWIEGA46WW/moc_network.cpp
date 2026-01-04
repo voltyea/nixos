@@ -8,7 +8,6 @@
 
 #include "../../../network.h"
 #include <QtCore/qmetatype.h>
-#include <QtCore/QList>
 
 #include <QtCore/qtmochelpers.h>
 
@@ -40,6 +39,7 @@ template <> constexpr inline auto AccessPointInfo::qt_create_metaobjectdata<qt_m
     namespace QMC = QtMocConstants;
     QtMocHelpers::StringRefStorage qt_stringData {
         "AccessPointInfo",
+        "ssid",
         "strength",
         "active"
     };
@@ -47,10 +47,12 @@ template <> constexpr inline auto AccessPointInfo::qt_create_metaobjectdata<qt_m
     QtMocHelpers::UintData qt_methods {
     };
     QtMocHelpers::UintData qt_properties {
+        // property 'ssid'
+        QtMocHelpers::PropertyData<QString>(1, QMetaType::QString, QMC::DefaultPropertyFlags | QMC::Writable),
         // property 'strength'
-        QtMocHelpers::PropertyData<int>(1, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable),
+        QtMocHelpers::PropertyData<int>(2, QMetaType::Int, QMC::DefaultPropertyFlags | QMC::Writable),
         // property 'active'
-        QtMocHelpers::PropertyData<bool>(2, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable),
+        QtMocHelpers::PropertyData<bool>(3, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable),
     };
     QtMocHelpers::UintData qt_enums {
     };
@@ -73,16 +75,18 @@ void AccessPointInfo::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
     if (_c == QMetaObject::ReadProperty) {
         void *_v = _a[0];
         switch (_id) {
-        case 0: *reinterpret_cast<int*>(_v) = _t->strength; break;
-        case 1: *reinterpret_cast<bool*>(_v) = _t->active; break;
+        case 0: *reinterpret_cast<QString*>(_v) = _t->ssid; break;
+        case 1: *reinterpret_cast<int*>(_v) = _t->strength; break;
+        case 2: *reinterpret_cast<bool*>(_v) = _t->active; break;
         default: break;
         }
     }
     if (_c == QMetaObject::WriteProperty) {
         void *_v = _a[0];
         switch (_id) {
-        case 0: QtMocHelpers::setProperty(_t->strength, *reinterpret_cast<int*>(_v)); break;
-        case 1: QtMocHelpers::setProperty(_t->active, *reinterpret_cast<bool*>(_v)); break;
+        case 0: QtMocHelpers::setProperty(_t->ssid, *reinterpret_cast<QString*>(_v)); break;
+        case 1: QtMocHelpers::setProperty(_t->strength, *reinterpret_cast<int*>(_v)); break;
+        case 2: QtMocHelpers::setProperty(_t->active, *reinterpret_cast<bool*>(_v)); break;
         default: break;
         }
     }
@@ -103,9 +107,13 @@ template <> constexpr inline auto Network::qt_create_metaobjectdata<qt_meta_tag_
         "activeChanged",
         "",
         "networksChanged",
+        "refreshActive",
+        "refreshNetworks",
+        "setEnable",
+        "enabled",
         "active",
         "networks",
-        "QList<AccessPointInfo>"
+        "QVariantList"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -113,12 +121,20 @@ template <> constexpr inline auto Network::qt_create_metaobjectdata<qt_meta_tag_
         QtMocHelpers::SignalData<void()>(5, 6, QMC::AccessPublic, QMetaType::Void),
         // Signal 'networksChanged'
         QtMocHelpers::SignalData<void()>(7, 6, QMC::AccessPublic, QMetaType::Void),
+        // Method 'refreshActive'
+        QtMocHelpers::MethodData<void()>(8, 6, QMC::AccessPublic, QMetaType::Void),
+        // Method 'refreshNetworks'
+        QtMocHelpers::MethodData<void()>(9, 6, QMC::AccessPublic, QMetaType::Void),
+        // Method 'setEnable'
+        QtMocHelpers::MethodData<void(bool)>(10, 6, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::Bool, 11 },
+        }}),
     };
     QtMocHelpers::UintData qt_properties {
         // property 'active'
-        QtMocHelpers::PropertyData<bool>(8, QMetaType::Bool, QMC::DefaultPropertyFlags, 0),
+        QtMocHelpers::PropertyData<bool>(12, QMetaType::Bool, QMC::DefaultPropertyFlags, 0),
         // property 'networks'
-        QtMocHelpers::PropertyData<QList<AccessPointInfo>>(9, 0x80000000 | 10, QMC::DefaultPropertyFlags | QMC::EnumOrFlag, 1),
+        QtMocHelpers::PropertyData<QVariantList>(13, 0x80000000 | 14, QMC::DefaultPropertyFlags | QMC::EnumOrFlag, 1),
     };
     QtMocHelpers::UintData qt_enums {
     };
@@ -147,6 +163,9 @@ void Network::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         switch (_id) {
         case 0: _t->activeChanged(); break;
         case 1: _t->networksChanged(); break;
+        case 2: _t->refreshActive(); break;
+        case 3: _t->refreshNetworks(); break;
+        case 4: _t->setEnable((*reinterpret_cast<std::add_pointer_t<bool>>(_a[1]))); break;
         default: ;
         }
     }
@@ -156,18 +175,11 @@ void Network::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         if (QtMocHelpers::indexOfMethod<void (Network::*)()>(_a, &Network::networksChanged, 1))
             return;
     }
-    if (_c == QMetaObject::RegisterPropertyMetaType) {
-        switch (_id) {
-        default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 1:
-            *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< QList<AccessPointInfo> >(); break;
-        }
-    }
     if (_c == QMetaObject::ReadProperty) {
         void *_v = _a[0];
         switch (_id) {
         case 0: *reinterpret_cast<bool*>(_v) = _t->active(); break;
-        case 1: *reinterpret_cast<QList<AccessPointInfo>*>(_v) = _t->networks(); break;
+        case 1: *reinterpret_cast<QVariantList*>(_v) = _t->networks(); break;
         default: break;
         }
     }
@@ -192,14 +204,14 @@ int Network::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 5;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 5)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 2;
+        _id -= 5;
     }
     if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty

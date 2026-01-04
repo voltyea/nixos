@@ -10,7 +10,15 @@ import qs.widgets
 import qs.utils
 
 Rectangle {
-  id: parentRectangle
+  id: root
+  readonly property string activeSsid: {
+    let item = Network.networks.find(e => e.active)
+    return item ? item.ssid : ""
+  }
+  readonly property int activeStrength: {
+    let item = Network.networks.find(e => e.active)
+    return item ? item.strength : 0
+  }
   clip: true
   Component.onCompleted: brightnessSliderTip.x=Brightness.currentBrightness/Brightness.maxBrightness*brightnessSlider.width
   color: "transparent"
@@ -22,13 +30,16 @@ Rectangle {
     width: 0
   }
 
-  NetworkMenu {
+  Loader {
     id: networkMenu
+    asynchronous: true
+    source: "NetworkMenu.qml"
     anchors.right: bluetoothMenu.left
     height: parent.height
+    //width: root.width
     width: 0
+    active: width > 10
   }
-
   Rectangle {
     anchors.right: networkMenu.left
     height: parent.height
@@ -99,7 +110,7 @@ Rectangle {
             hoverEnabled: true
             onEntered: arrow_shape.hovered=true
             onExited: arrow_shape.hovered=false
-            onClicked: networkMenu.width=parentRectangle.width
+            onClicked: networkMenu.width=root.width
           }
         }
         Rectangle {
@@ -115,7 +126,7 @@ Rectangle {
             hoverEnabled: true
             onEntered: parent.color="#1a" + Color.colors.on_secondary_fixed_variant
             onExited: parent.color="transparent"
-            onClicked: Network.wifiEnabled ? Quickshell.execDetached(["nmcli", "radio", "wifi", "off"]) : Quickshell.execDetached(["nmcli", "radio", "wifi", "on"])
+            onClicked: Network.active = !Network.active
           }
           Text {
             anchors.centerIn: parent
@@ -126,7 +137,7 @@ Rectangle {
             z: -1
             Text {
               anchors.centerIn: parent
-              text: !Network.wifiEnabled ? "" : Network.activeSignalStrength < 33.33 ? "" : Network.activeSignalStrength >= 33.33 && Network.activeSignalStrength < 66.66 ? "" : ""
+              text: !Network.active ? "" : root.activeStrength < 33.33 ? "" : root.activeStrength >= 33.33 && root.activeStrength < 66.66 ? "" : ""
               font.family: "icomoon"
               color: "#" + Color.colors.on_primary
               font.pointSize: 19
@@ -141,7 +152,7 @@ Rectangle {
           width: 95
           maxFontSize: 18
           minFontSize: 8
-          text: Network.activeSsid === "" ? "Wifi" : Network.activeSsid
+          text: root.activeSsid === "" ? "Wifi" : root.activeSsid
           color: "#" + Color.colors.on_primary
           fontFamily: "SF Pro Rounded"
           bold: true
@@ -201,7 +212,7 @@ Rectangle {
             onEntered: arrow_shape0.hovered=true
             onExited: arrow_shape0.hovered=false
             onClicked: {
-              bluetoothMenu.width=parentRectangle.width
+              bluetoothMenu.width=root.width
               Bluetooth.defaultAdapter.discoverable=true
               Bluetooth.defaultAdapter.discoverableTimeout=10
               Bluetooth.defaultAdapter.discovering=true

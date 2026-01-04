@@ -8,7 +8,7 @@ import QtQuick.tooling 1.2
 Module {
     Component {
         file: "network.h"
-        lineNumber: 17
+        lineNumber: 62
         name: "Network"
         accessSemantics: "reference"
         prototype: "QObject"
@@ -22,20 +22,26 @@ Module {
             read: "active"
             notify: "activeChanged"
             index: 0
-            lineNumber: 20
+            lineNumber: 64
             isReadonly: true
         }
         Property {
             name: "networks"
-            type: "AccessPointInfo"
-            isList: true
+            type: "QVariantList"
             read: "networks"
             notify: "networksChanged"
             index: 1
-            lineNumber: 21
+            lineNumber: 65
             isReadonly: true
         }
-        Signal { name: "activeChanged"; lineNumber: 31 }
-        Signal { name: "networksChanged"; lineNumber: 32 }
+        Signal { name: "activeChanged"; lineNumber: 82 }
+        Signal { name: "networksChanged"; lineNumber: 83 }
+        Method { name: "refreshActive"; lineNumber: 76 }
+        Method { name: "refreshNetworks"; lineNumber: 77 }
+        Method {
+            name: "setEnable"
+            lineNumber: 79
+            Parameter { name: "enabled"; type: "bool" }
+        }
     }
 }

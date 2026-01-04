@@ -442,23 +442,10 @@ CMakeFiles/network.dir/network.cpp.o: /home/volty/network/network.cpp \
  /nix/store/zp6r9bxds1hldvkx1vbrk0d1ady17zhh-qtbase-6.10.1/include/QtCore/qtyperevision.h \
  /nix/store/zgpfg77x3nq1x6f7xlbg01g4ql21yn2w-qtdeclarative-6.10.1/include/QtQml/qqmlregistration.h \
  /nix/store/zgpfg77x3nq1x6f7xlbg01g4ql21yn2w-qtdeclarative-6.10.1/include/QtQmlIntegration/qqmlintegration.h \
- /nix/store/zp6r9bxds1hldvkx1vbrk0d1ady17zhh-qtbase-6.10.1/include/QtCore/QList \
- /nix/store/zp6r9bxds1hldvkx1vbrk0d1ady17zhh-qtbase-6.10.1/include/QtCore/qlist.h \
- /nix/store/kzq78n13l8w24jn8bx4djj79k5j717f1-gcc-14.3.0/include/c++/14.3.0/iostream \
- /nix/store/kzq78n13l8w24jn8bx4djj79k5j717f1-gcc-14.3.0/include/c++/14.3.0/ostream \
- /nix/store/kzq78n13l8w24jn8bx4djj79k5j717f1-gcc-14.3.0/include/c++/14.3.0/ios \
- /nix/store/kzq78n13l8w24jn8bx4djj79k5j717f1-gcc-14.3.0/include/c++/14.3.0/bits/basic_ios.h \
- /nix/store/kzq78n13l8w24jn8bx4djj79k5j717f1-gcc-14.3.0/include/c++/14.3.0/bits/locale_facets.h \
- /nix/store/kzq78n13l8w24jn8bx4djj79k5j717f1-gcc-14.3.0/include/c++/14.3.0/cwctype \
- /nix/store/gi4cz4ir3zlwhf1azqfgxqdnczfrwsr7-glibc-2.40-66-dev/include/wctype.h \
- /nix/store/gi4cz4ir3zlwhf1azqfgxqdnczfrwsr7-glibc-2.40-66-dev/include/bits/wctype-wchar.h \
- /nix/store/kzq78n13l8w24jn8bx4djj79k5j717f1-gcc-14.3.0/include/c++/14.3.0/x86_64-unknown-linux-gnu/bits/ctype_base.h \
- /nix/store/kzq78n13l8w24jn8bx4djj79k5j717f1-gcc-14.3.0/include/c++/14.3.0/x86_64-unknown-linux-gnu/bits/ctype_inline.h \
- /nix/store/kzq78n13l8w24jn8bx4djj79k5j717f1-gcc-14.3.0/include/c++/14.3.0/bits/locale_facets.tcc \
- /nix/store/kzq78n13l8w24jn8bx4djj79k5j717f1-gcc-14.3.0/include/c++/14.3.0/bits/basic_ios.tcc \
- /nix/store/kzq78n13l8w24jn8bx4djj79k5j717f1-gcc-14.3.0/include/c++/14.3.0/bits/ostream.tcc \
- /nix/store/kzq78n13l8w24jn8bx4djj79k5j717f1-gcc-14.3.0/include/c++/14.3.0/istream \
- /nix/store/kzq78n13l8w24jn8bx4djj79k5j717f1-gcc-14.3.0/include/c++/14.3.0/bits/istream.tcc \
+ /nix/store/zp6r9bxds1hldvkx1vbrk0d1ady17zhh-qtbase-6.10.1/include/QtCore/QVariant \
+ /nix/store/zp6r9bxds1hldvkx1vbrk0d1ady17zhh-qtbase-6.10.1/include/QtCore/qvariant.h \
+ /nix/store/zp6r9bxds1hldvkx1vbrk0d1ady17zhh-qtbase-6.10.1/include/QtCore/QString \
+ /nix/store/zp6r9bxds1hldvkx1vbrk0d1ady17zhh-qtbase-6.10.1/include/QtCore/qstring.h \
  /nix/store/x20wa4ax5223xmd8jy0bryxd4dxn3q36-networkmanager-1.54.3-dev/include/libnm/NetworkManager.h \
  /nix/store/g1zvzj5msg1d92jj2z9hn3b9n68rp8ap-glib-2.86.1-dev/include/glib-2.0/gio/gio.h \
  /nix/store/g1zvzj5msg1d92jj2z9hn3b9n68rp8ap-glib-2.86.1-dev/include/glib-2.0/gio/giotypes.h \
