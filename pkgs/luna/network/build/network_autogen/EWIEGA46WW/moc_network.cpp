@@ -107,10 +107,6 @@ template <> constexpr inline auto Network::qt_create_metaobjectdata<qt_meta_tag_
         "activeChanged",
         "",
         "networksChanged",
-        "refreshActive",
-        "refreshNetworks",
-        "setEnable",
-        "enabled",
         "active",
         "networks",
         "QVariantList"
@@ -121,20 +117,12 @@ template <> constexpr inline auto Network::qt_create_metaobjectdata<qt_meta_tag_
         QtMocHelpers::SignalData<void()>(5, 6, QMC::AccessPublic, QMetaType::Void),
         // Signal 'networksChanged'
         QtMocHelpers::SignalData<void()>(7, 6, QMC::AccessPublic, QMetaType::Void),
-        // Method 'refreshActive'
-        QtMocHelpers::MethodData<void()>(8, 6, QMC::AccessPublic, QMetaType::Void),
-        // Method 'refreshNetworks'
-        QtMocHelpers::MethodData<void()>(9, 6, QMC::AccessPublic, QMetaType::Void),
-        // Method 'setEnable'
-        QtMocHelpers::MethodData<void(bool)>(10, 6, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::Bool, 11 },
-        }}),
     };
     QtMocHelpers::UintData qt_properties {
         // property 'active'
-        QtMocHelpers::PropertyData<bool>(12, QMetaType::Bool, QMC::DefaultPropertyFlags, 0),
+        QtMocHelpers::PropertyData<bool>(8, QMetaType::Bool, QMC::DefaultPropertyFlags | QMC::Writable, 0),
         // property 'networks'
-        QtMocHelpers::PropertyData<QVariantList>(13, 0x80000000 | 14, QMC::DefaultPropertyFlags | QMC::EnumOrFlag, 1),
+        QtMocHelpers::PropertyData<QVariantList>(9, 0x80000000 | 10, QMC::DefaultPropertyFlags | QMC::EnumOrFlag, 1),
     };
     QtMocHelpers::UintData qt_enums {
     };
@@ -163,9 +151,6 @@ void Network::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         switch (_id) {
         case 0: _t->activeChanged(); break;
         case 1: _t->networksChanged(); break;
-        case 2: _t->refreshActive(); break;
-        case 3: _t->refreshNetworks(); break;
-        case 4: _t->setEnable((*reinterpret_cast<std::add_pointer_t<bool>>(_a[1]))); break;
         default: ;
         }
     }
@@ -180,6 +165,13 @@ void Network::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         switch (_id) {
         case 0: *reinterpret_cast<bool*>(_v) = _t->active(); break;
         case 1: *reinterpret_cast<QVariantList*>(_v) = _t->networks(); break;
+        default: break;
+        }
+    }
+    if (_c == QMetaObject::WriteProperty) {
+        void *_v = _a[0];
+        switch (_id) {
+        case 0: _t->setEnable(*reinterpret_cast<bool*>(_v)); break;
         default: break;
         }
     }
@@ -204,14 +196,14 @@ int Network::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 2;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 2)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 5;
+        _id -= 2;
     }
     if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty

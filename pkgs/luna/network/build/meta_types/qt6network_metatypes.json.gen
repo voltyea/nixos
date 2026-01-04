@@ -4,14 +4,14 @@
             {
                 "className": "AccessPointInfo",
                 "gadget": true,
-                "lineNumber": 11,
+                "lineNumber": 9,
                 "properties": [
                     {
                         "constant": false,
                         "designable": true,
                         "final": false,
                         "index": 0,
-                        "lineNumber": 13,
+                        "lineNumber": 11,
                         "member": "ssid",
                         "name": "ssid",
                         "required": false,
@@ -25,7 +25,7 @@
                         "designable": true,
                         "final": false,
                         "index": 1,
-                        "lineNumber": 14,
+                        "lineNumber": 12,
                         "member": "strength",
                         "name": "strength",
                         "required": false,
@@ -39,7 +39,7 @@
                         "designable": true,
                         "final": false,
                         "index": 2,
-                        "lineNumber": 15,
+                        "lineNumber": 13,
                         "member": "active",
                         "name": "active",
                         "required": false,
@@ -63,36 +63,7 @@
                     }
                 ],
                 "className": "Network",
-                "lineNumber": 62,
-                "methods": [
-                    {
-                        "access": "public",
-                        "index": 2,
-                        "lineNumber": 76,
-                        "name": "refreshActive",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "index": 3,
-                        "lineNumber": 77,
-                        "name": "refreshNetworks",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "enabled",
-                                "type": "bool"
-                            }
-                        ],
-                        "index": 4,
-                        "lineNumber": 79,
-                        "name": "setEnable",
-                        "returnType": "void"
-                    }
-                ],
+                "lineNumber": 22,
                 "object": true,
                 "properties": [
                     {
@@ -100,7 +71,7 @@
                         "designable": true,
                         "final": false,
                         "index": 0,
-                        "lineNumber": 64,
+                        "lineNumber": 24,
                         "name": "active",
                         "notify": "activeChanged",
                         "read": "active",
@@ -108,14 +79,15 @@
                         "scriptable": true,
                         "stored": true,
                         "type": "bool",
-                        "user": false
+                        "user": false,
+                        "write": "setEnable"
                     },
                     {
                         "constant": false,
                         "designable": true,
                         "final": false,
                         "index": 1,
-                        "lineNumber": 65,
+                        "lineNumber": 25,
                         "name": "networks",
                         "notify": "networksChanged",
                         "read": "networks",
@@ -131,14 +103,14 @@
                     {
                         "access": "public",
                         "index": 0,
-                        "lineNumber": 82,
+                        "lineNumber": 36,
                         "name": "activeChanged",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
                         "index": 1,
-                        "lineNumber": 83,
+                        "lineNumber": 37,
                         "name": "networksChanged",
                         "returnType": "void"
                     }

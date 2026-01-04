@@ -20,12 +20,15 @@ qt_add_qml_module(network
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBNM REQUIRED libnm)
 target_link_libraries(network PRIVATE
+  ${GLIB_LIBRARIES}
   ${LIBNM_LIBRARIES}
 )
 target_include_directories(network PRIVATE
+  ${GLIB_INCLUDE_DIRS}
   ${LIBNM_INCLUDE_DIRS}
 )
 target_compile_options(network PRIVATE
+  ${GLIB_CFLAGS_OTHER}
   ${LIBNM_CFLAGS_OTHER}
 )
 add_compile_definitions(QT_NO_KEYWORDS)

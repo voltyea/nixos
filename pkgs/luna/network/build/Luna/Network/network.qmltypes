@@ -8,7 +8,7 @@ import QtQuick.tooling 1.2
 Module {
     Component {
         file: "network.h"
-        lineNumber: 62
+        lineNumber: 22
         name: "Network"
         accessSemantics: "reference"
         prototype: "QObject"
@@ -20,10 +20,10 @@ Module {
             name: "active"
             type: "bool"
             read: "active"
+            write: "setEnable"
             notify: "activeChanged"
             index: 0
-            lineNumber: 64
-            isReadonly: true
+            lineNumber: 24
         }
         Property {
             name: "networks"
@@ -31,17 +31,10 @@ Module {
             read: "networks"
             notify: "networksChanged"
             index: 1
-            lineNumber: 65
+            lineNumber: 25
             isReadonly: true
         }
-        Signal { name: "activeChanged"; lineNumber: 82 }
-        Signal { name: "networksChanged"; lineNumber: 83 }
-        Method { name: "refreshActive"; lineNumber: 76 }
-        Method { name: "refreshNetworks"; lineNumber: 77 }
-        Method {
-            name: "setEnable"
-            lineNumber: 79
-            Parameter { name: "enabled"; type: "bool" }
-        }
+        Signal { name: "activeChanged"; lineNumber: 36 }
+        Signal { name: "networksChanged"; lineNumber: 37 }
     }
 }
