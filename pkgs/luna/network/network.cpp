@@ -47,7 +47,7 @@ static void nm_client_ready(
       );
 }
 
-inline QString gbyteToString(NMAccessPoint* ap) {
+QString gbyteToString(NMAccessPoint* ap) {
   GBytes* ssid = nm_access_point_get_ssid(ap);
   if (!ssid) return {};
   gsize len = 0;
@@ -58,7 +58,6 @@ inline QString gbyteToString(NMAccessPoint* ap) {
 static void init_nm_client_async(Network* self) {
   if (g_client || g_initializing)
     return;
-
   g_initializing = true;
   nm_client_new_async(nullptr, nm_client_ready, self);
 }
