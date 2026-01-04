@@ -32,42 +32,7 @@ QVariantList Network::networks() const {
       result.append(entry);
     }
   }
-
   return result;
-}
-
-void Network::refreshActive() {
-  init_nm_client_async();
-  g_idle_add(
-      [](gpointer self_ptr) -> gboolean {
-      auto* self = static_cast<Network*>(self_ptr);
-      if (!g_client)
-      return G_SOURCE_CONTINUE;
-      QMetaObject::invokeMethod(
-          self,
-          "activeChanged",
-          Qt::QueuedConnection
-          );
-      return G_SOURCE_REMOVE;
-      },
-      this);
-}
-
-void Network::refreshNetworks() {
-  init_nm_client_async();
-  g_idle_add(
-      [](gpointer self_ptr) -> gboolean {
-      auto* self = static_cast<Network*>(self_ptr);
-      if (!g_client)
-      return G_SOURCE_CONTINUE;
-      QMetaObject::invokeMethod(
-          self,
-          "networksChanged",
-          Qt::QueuedConnection
-          );
-      return G_SOURCE_REMOVE;
-      },
-      this);
 }
 
 void Network::setEnable(bool enabled) {
