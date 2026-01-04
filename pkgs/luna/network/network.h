@@ -48,7 +48,7 @@ inline QString gbyteToString(NMAccessPoint* ap) {
 
 class Network : public QObject {
   Q_OBJECT
-    Q_PROPERTY(bool active READ active NOTIFY activeChanged)
+    Q_PROPERTY(bool active READ active WRITE setEnable NOTIFY activeChanged)
     Q_PROPERTY(QVariantList networks READ networks NOTIFY networksChanged)
     QML_ELEMENT
     QML_SINGLETON
@@ -57,9 +57,20 @@ class Network : public QObject {
     explicit Network(QObject* parent = nullptr);
     bool active() const;
     QVariantList networks() const;
-    Q_INVOKABLE void refreshActive();
-    Q_INVOKABLE void refreshNetworks();
-    Q_INVOKABLE void setEnable(bool enabled);
+    void setEnable(bool enabled) {
+  if (!g_client)
+    return;
+  nm_client_dbus_set_property(
+      g_client,
+      "/org/freedesktop/NetworkManager",
+      "org.freedesktop.NetworkManager",
+      "WirelessEnabled",
+      g_variant_new_boolean(enabled),
+      -1,
+      nullptr,
+      nullptr,
+      nullptr);
+    }
 
 Q_SIGNALS:
     void activeChanged();
