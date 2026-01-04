@@ -30,7 +30,7 @@ static void nm_client_ready(
     g_initializing = false;
     return;
   }
-  auto* network = static_cast<Network*>(user_data);
+  auto *network = static_cast<Network*>(user_data);
   g_signal_connect(
       g_client,
       "notify::wireless-enabled",
