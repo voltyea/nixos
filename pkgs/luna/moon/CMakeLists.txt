@@ -26,4 +26,3 @@ install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/Luna/Moon/moon_qml_module_dir_map.qrc
   DESTINATION lib/qt-6/qml/Luna/Moon
 )
-

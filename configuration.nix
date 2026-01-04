@@ -67,6 +67,7 @@
   programs.nix-ld.enable = true;
   programs.hyprland.enable = true;
   programs.neovim.enable = true;
+  hardware.intel-gpu-tools.enable = true;
   programs.git.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.sessionVariables.EDITOR = "nvim";
@@ -87,7 +88,6 @@
     cliphist
     grimblast
     jq
-    quickshell
     wf-recorder
     slurp
     mpv
@@ -109,6 +109,7 @@
     alejandra
     qt6.qtimageformats
     (qt6.callPackage ./pkgs/luna/moon/moon.nix {})
+    (callPackage ./pkgs/luna/luna.nix {})
   ];
 
   fonts.packages = with pkgs; [

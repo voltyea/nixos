@@ -9,4 +9,3 @@ double Moon::phaseAngle() const
 {
   return Astronomy_MoonPhase(Astronomy_CurrentTime()).angle;
 }
-

@@ -1,0 +1,9 @@
+--bare
+-I
+/home/volty/network/build
+-I
+/nix/store/zgpfg77x3nq1x6f7xlbg01g4ql21yn2w-qtdeclarative-6.10.1/lib/qt-6/qml
+--resource
+/home/volty/network/build/.qt/rcc/qmake_Luna_Network.qrc
+--json
+/home/volty/network/build/network_qmllint.json
