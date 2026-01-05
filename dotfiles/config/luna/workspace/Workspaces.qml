@@ -37,6 +37,7 @@ Rectangle {
   }
   Text {
     id: activeWS
+    readonly property int wsId: Hyprland.focusedWorkspace.id
     text: ""
     font.pointSize: 18
     font.family: "icomoon"
@@ -46,10 +47,14 @@ Rectangle {
       NumberAnimation {
         alwaysRunToEnd: false
         duration: 180
-        easing.type: Easing.OutQuart
+        easing.type: Easing.OutSine
       }
     }
-    onXChanged: root.prevWS = wsRepeater.itemAt(Hyprland.focusedWorkspace.id-1).x
+    onWsIdChanged: {
+      if(wsRepeater.itemAt(Hyprland.focusedWorkspace?.id-1 ?? 0)?.x === activeWS.x) {
+        root.prevWS = wsRepeater.itemAt(Hyprland.focusedWorkspace.id-1).x
+      }
+    }
     Loader {
       active: wsRepeater.itemAt(Hyprland.focusedWorkspace.id-1).x > activeWS.x
       asynchronous: true

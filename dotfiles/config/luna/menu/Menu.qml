@@ -30,15 +30,11 @@ Rectangle {
     width: 0
   }
 
-  Loader {
+  NetworkMenu {
     id: networkMenu
-    asynchronous: true
-    source: "NetworkMenu.qml"
     anchors.right: bluetoothMenu.left
     height: parent.height
-    //width: root.width
     width: 0
-    active: width > 10
   }
   Rectangle {
     anchors.right: networkMenu.left
