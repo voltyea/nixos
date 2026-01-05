@@ -108,7 +108,6 @@ QVariantList Network::networks() const {
       result.append(entry);
     }
   }
-
   return result;
 }
 
