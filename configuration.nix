@@ -109,6 +109,7 @@
     alejandra
     qt6.qtimageformats
     (qt6.callPackage ./pkgs/luna/moon/moon.nix {})
+    (qt6.callPackage ./pkgs/luna/network/network.nix {})
     (callPackage ./pkgs/luna/luna.nix {})
   ];
 

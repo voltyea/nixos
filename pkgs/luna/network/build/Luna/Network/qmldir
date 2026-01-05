@@ -1,7 +1,0 @@
-module Luna.Network
-linktarget networkplugin
-optional plugin networkplugin
-classname Luna_NetworkPlugin
-typeinfo network.qmltypes
-prefer :/qt/qml/Luna/Network/
-

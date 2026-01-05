@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/qt/qml/Luna/Network">
-    <file alias="qmldir">/home/volty/network/build/Luna/Network/qmldir</file>
-  </qresource>
-</RCC>
-
