@@ -26,7 +26,7 @@
         font-rgba-order = "rgb";
         color-scheme = "prefer-dark";
         event-sounds = "true";
-        nput-feedback-sounds = "false";
+        input-feedback-sounds = "false";
       };
     }
   ];
