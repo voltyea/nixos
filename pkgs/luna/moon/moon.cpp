@@ -19,8 +19,8 @@ double Moon::phaseAngle() const {
 void Moon::updatePhaseAngle() {
     const double newValue = Astronomy_MoonPhase(Astronomy_CurrentTime()).angle;
 
-    if (qFuzzyCompare(m_phaseAngle, newValue))
-        return;
+    if (qAbs(m_phaseAngle - newValue) < 1e-9)
+    return;
 
     m_phaseAngle = newValue;
     emit phaseAngleChanged();
