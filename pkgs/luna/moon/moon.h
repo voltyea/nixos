@@ -10,7 +10,6 @@ class Moon : public QObject {
   QML_SINGLETON
 
 public:
-  explicit Moon(QObject *parent = nullptr);
   double phaseAngle() const;
 
 signals:
