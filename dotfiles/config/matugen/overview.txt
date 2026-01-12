@@ -1,101 +1,101 @@
 
-background = #1e100d
+background = #10131c
 
 error = #ffb4ab
 
 error_container = #93000a
 
-inverse_on_surface = #3d2c29
+inverse_on_surface = #2d303a
 
-inverse_primary = #8e437d
+inverse_primary = #00687a
 
-inverse_surface = #f9dcd6
+inverse_surface = #e0e2ef
 
-on_background = #f9dcd6
+on_background = #e0e2ef
 
 on_error = #690005
 
 on_error_container = #ffdad6
 
-on_primary = #57124c
+on_primary = #003640
 
-on_primary_container = #ffd7f0
+on_primary_container = #acedff
 
-on_primary_fixed = #3a0032
+on_primary_fixed = #001f26
 
-on_primary_fixed_variant = #732b64
+on_primary_fixed_variant = #004e5c
 
-on_secondary = #4e1e44
+on_secondary = #003640
 
-on_secondary_container = #ffd7f0
+on_secondary_container = #acedff
 
-on_secondary_fixed = #35082e
+on_secondary_fixed = #001f26
 
-on_secondary_fixed_variant = #68355c
+on_secondary_fixed_variant = #004e5c
 
-on_surface = #f9dcd6
+on_surface = #e0e2ef
 
-on_surface_variant = #e7bdb4
+on_surface_variant = #bfc6dc
 
-on_tertiary = #561f13
+on_tertiary = #132f60
 
-on_tertiary_container = #ffdad3
+on_tertiary_container = #d8e2ff
 
-on_tertiary_fixed = #3a0a03
+on_tertiary_fixed = #001a43
 
-on_tertiary_fixed_variant = #733427
+on_tertiary_fixed_variant = #2d4678
 
-outline = #ae8880
+outline = #8990a5
 
-outline_variant = #5d3f39
+outline_variant = #3f4759
 
-primary = #fface7
+primary = #55d6f4
 
-primary_container = #732b64
+primary_container = #004e5c
 
-primary_fixed = #ffd7f0
+primary_fixed = #acedff
 
-primary_fixed_dim = #fface7
+primary_fixed_dim = #55d6f4
 
 scrim = #000000
 
-secondary = #f6b2e0
+secondary = #85d2e7
 
-secondary_container = #68355c
+secondary_container = #004e5c
 
-secondary_fixed = #ffd7f0
+secondary_fixed = #acedff
 
-secondary_fixed_dim = #f6b2e0
+secondary_fixed_dim = #85d2e7
 
 shadow = #000000
 
-source_color = #9f3b27
+source_color = #3564ba
 
-surface = #1e100d
+surface = #10131c
 
-surface_bright = #473531
+surface_bright = #353943
 
-surface_container = #2b1c19
+surface_container = #1c1f29
 
-surface_container_high = #372623
+surface_container_high = #262a33
 
-surface_container_highest = #42312d
+surface_container_highest = #31353f
 
-surface_container_low = #271815
+surface_container_low = #181b25
 
-surface_container_lowest = #180b08
+surface_container_lowest = #0a0e17
 
-surface_dim = #1e100d
+surface_dim = #10131c
 
-surface_tint = #fface7
+surface_tint = #55d6f4
 
-surface_variant = #5d3f39
+surface_variant = #3f4759
 
-tertiary = #ffb4a4
+tertiary = #aec6ff
 
-tertiary_container = #733427
+tertiary_container = #2d4678
 
-tertiary_fixed = #ffdad3
+tertiary_fixed = #d8e2ff
 
-tertiary_fixed_dim = #ffb4a4
+tertiary_fixed_dim = #aec6ff
 

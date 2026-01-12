@@ -48,6 +48,7 @@ ShellRoot {
           source: Quickshell.env("HOME") + "/.current_wallpaper"
           fillMode: Image.PreserveAspectCrop
           retainWhileLoading: true
+          cache: false
           Connections {
             target: Color
             function onImageChanged() {

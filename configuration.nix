@@ -12,6 +12,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.timeout = 0;
   boot.kernelModules = ["rtw89"];
+  boot.kernelParams = ["iomem=relaxed"];
   hardware.enableAllFirmware = true;
   boot.initrd.availableKernelModules = [
     "xhci_pci"
@@ -44,7 +45,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "hyprland";
+        command = "start-hyprland";
         user = "volty";
       };
       default_session = initial_session;
@@ -69,6 +70,7 @@
   programs.neovim.enable = true;
   hardware.intel-gpu-tools.enable = true;
   programs.git.enable = true;
+  programs.flashrom.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.sessionVariables.EDITOR = "nvim";
   nixpkgs.config.allowUnfree = true;
@@ -111,6 +113,12 @@
     (qt6.callPackage ./pkgs/luna/moon/moon.nix {})
     (qt6.callPackage ./pkgs/luna/network/network.nix {})
     (callPackage ./pkgs/luna/luna.nix {})
+    dmidecode
+    p7zip
+    file
+    gparted
+    kdePackages.dolphin
+    innoextract
   ];
 
   fonts.packages = with pkgs; [

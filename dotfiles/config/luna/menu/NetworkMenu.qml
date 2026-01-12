@@ -8,7 +8,7 @@ import qs.colors
 import Luna.Network
 
 Loader {
-  id: network
+  id: root
   asynchronous: true
   active: width > 10
   clip: true
@@ -20,10 +20,12 @@ Loader {
     }
   }
   sourceComponent: Rectangle {
+    id: network
     width: parent.width
     height: parent.height
     color: "transparent"
     clip: true
+    property int index;
     Rectangle {
       anchors.top: parent.top
       anchors.left: parent.left
@@ -45,7 +47,7 @@ Loader {
         hoverEnabled: true
         onEntered: parent.color="#1a" + Color.colors.on_secondary_fixed_variant
         onExited: parent.color="#" + Color.colors.primary
-        onClicked: network.width=0
+        onClicked: root.width=0
       }
     }
     ScrollView {
@@ -71,7 +73,10 @@ Loader {
               enabled: modelData.active ? false : true
               onEntered: parent.beingHovered=true
               onExited: parent.beingHovered=false
-              onClicked: auth.active = true
+              onClicked: {
+                network.index = index
+                auth.active = true
+              }
             }
             AutoFitText {
               anchors.centerIn: parent
@@ -126,19 +131,44 @@ Loader {
                 font.pointSize: 20
               }
             }
-            Loader {
-              id: auth
-              active: false
-              asynchronous: true
-              x: network.width/2 - 70
-              y: network.height/2
-              width: 200
-              height: 100
-              sourceComponent: Rectangle {
-                width: parent.width
-                height: parent.height
-              }
-            }
+          }
+        }
+      }
+    }
+    Loader {
+      id: auth
+      active: false
+      asynchronous: true
+      anchors.horizontalCenter: parent.horizontalCenter
+      y: active ? parent.height/2 - height/2 : -height
+      width: 250
+      height: 120
+      sourceComponent: Rectangle {
+        width: parent.width
+        height: parent.height
+        radius: 30
+        color: "#" + Color.colors.inverse_primary
+        TextField {
+          anchors.bottom: parent.bottom
+          anchors.bottomMargin: 10
+          anchors.horizontalCenter: parent.horizontalCenter
+          height: 40
+          width: parent.width - 40
+          background: Rectangle {
+            radius: height/2
+            color: "#4d" + Color.colors.inverse_surface
+          }
+          horizontalAlignment: Text.AlignHCenter
+          verticalAlignment: Text.AlignVCenter
+          placeholderText: "password"
+          font.pointSize: 12
+          font.family: "SF Pro Rounded"
+          color: "#" + Color.colors.on_primary
+          echoMode: TextInput.Password
+          font.bold: true
+          onAccepted: {
+            Network.networks[network.index].connect(this.text)
+            clear()
           }
         }
       }

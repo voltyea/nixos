@@ -7,7 +7,7 @@ post_hook = 'hyprctl reload'
 
 [templates.json]
 input_path = './templates/colors.json'
-output_path = '~/.config/quickshell/colors/colors.json'
+output_path = '~/.config/luna/colors/colors.json'
 
 [templates.overview]
 input_path = './templates/overview.txt'
