@@ -1,11 +1,8 @@
 #include "moon.h"
 #include "lib/astro_demo_common.h"
-#include <QTimer>
 
 Moon::Moon(QObject *parent) : QObject(parent) {
-  QTimer *timer = new QTimer(this);
-  connect(timer, &QTimer::timeout, this, QOverload<>::of(&Moon::update));
-  timer->start(1h);
+  startTimer(1h, QOverload<>::of(&Moon::phaseAngle));
 }
 
 double Moon::phaseAngle() const {
