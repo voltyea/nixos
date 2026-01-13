@@ -14,19 +14,16 @@ Network::Network(QObject *parent) : QObject(parent) {
     return;
   }
 
-  QDBusReply<QVariant> reply =
-    props.call("Get",
-        "org.freedesktop.NetworkManager",
-        "NetworkingEnabled");
+  QDBusReply<QVariant> reply = props.call("Get", "org.freedesktop.NetworkManager", "WirelessEnabled");
 
   if (!reply.isValid()) {
     qWarning() << "D-Bus call failed:" << reply.error().message();
     return;
   }
 
-  m_enabled = reply.value().toBool();
+  m_wirelessEnabled = reply.value().toBool();
 }
 
-bool Network::enabled() const {
-  return m_enabled;
+bool Network::wirelessEnabled() const {
+  return m_wirelessEnabled;
 }

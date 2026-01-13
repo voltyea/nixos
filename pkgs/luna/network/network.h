@@ -5,17 +5,17 @@
 
 class Network : public QObject {
   Q_OBJECT
-    Q_PROPERTY(bool enabled READ enabled NOTIFY enabledChanged)
+    Q_PROPERTY(bool wirelessEnabled READ wirelessEnabled NOTIFY wirelessEnabledChanged)
     QML_ELEMENT
     QML_SINGLETON
 
   public:
     explicit Network(QObject *parent = nullptr);
-    bool enabled() const;
+    bool wirelessEnabled() const;
 
 signals:
-    void enabledChanged();
+    void wirelessEnabledChanged();
 
   private:
-    bool m_enabled = false;
+    bool m_wirelessEnabled = false;
 };

@@ -263,7 +263,7 @@ ShellRoot {
       Text {
         anchors.horizontalCenter: parent.horizontalCenter
         //text: ""
-        text: Network.enabled
+        text: Network.wirelessEnabled
         font.family: "icomoon"
         color: "#" + Color.colors.on_primary
         font.pointSize: 26
