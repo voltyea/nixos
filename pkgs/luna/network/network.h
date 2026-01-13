@@ -10,12 +10,9 @@ class Network : public QObject {
     QML_SINGLETON
 
   public:
-    explicit Network(QObject *parent = nullptr);
+    Network(QObject *parent = nullptr);
     bool wirelessEnabled() const;
 
 signals:
     void wirelessEnabledChanged();
-
-  private:
-    bool m_wirelessEnabled = false;
 };
