@@ -19,7 +19,7 @@ qt_standard_project_setup(REQUIRES 6.10)
       lib/astronomy.c
       )
 
-target_link_libraries(moon PRIVATE Qt::Core Qt::Qml Qt::Quick)
+target_link_libraries(moon PRIVATE Qt6::Core Qt6::Qml Qt6::Quick)
 
   install(TARGETS moon DESTINATION lib/qt-6/qml/Luna/Moon)
 install(TARGETS moonplugin DESTINATION lib/qt-6/qml/Luna/Moon)

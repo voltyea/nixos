@@ -4,9 +4,6 @@
   cmake,
   qt6,
   wrapQtAppsHook,
-  pkg-config,
-  networkmanager,
-  glib,
   clang,
 }:
 stdenv.mkDerivation rec {
@@ -24,8 +21,5 @@ stdenv.mkDerivation rec {
   buildInputs = [
     qt6.qtbase
     qt6.qtdeclarative
-    pkg-config
-    networkmanager
-    glib
   ];
 }

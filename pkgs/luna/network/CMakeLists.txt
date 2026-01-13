@@ -7,7 +7,7 @@ project(network LANGUAGES CXX C)
   set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-  find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml)
+  find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml Dbus)
 qt_standard_project_setup(REQUIRES 6.10)
   qt_add_qml_module(network
       URI Luna.Network
@@ -18,31 +18,18 @@ qt_standard_project_setup(REQUIRES 6.10)
       network.cpp
       )
 
-  find_package(PkgConfig REQUIRED)
-
-pkg_check_modules(LIBNM REQUIRED libnm)
   target_link_libraries(network PRIVATE
-      ${GLIB_LIBRARIES}
-      ${LIBNM_LIBRARIES}
-      Qt::Core
-      Qt::Qml
-      Qt::Quick
+      Qt6::Core
+      Qt6::Qml
+      Qt6::Quick
+      Qt6::Dbus
       )
 
   target_include_directories(network PRIVATE
-      ${GLIB_INCLUDE_DIRS}
-      ${LIBNM_INCLUDE_DIRS}
       ${CMAKE_CURRENT_BINARY_DIR}
       )
 
-  target_compile_options(network PRIVATE
-      ${GLIB_CFLAGS_OTHER}
-      ${LIBNM_CFLAGS_OTHER}
-      )
-
-  add_compile_definitions(QT_NO_KEYWORDS)
-
-  install(TARGETS network DESTINATION lib/qt-6/qml/Luna/Network)
+install(TARGETS network DESTINATION lib/qt-6/qml/Luna/Network)
 
 install(TARGETS networkplugin DESTINATION lib/qt-6/qml/Luna/Network)
 

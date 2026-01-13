@@ -3,25 +3,25 @@
 #include <QTimer>
 
 Moon::Moon(QObject *parent) : QObject(parent) {
-    auto *timer = new QTimer(this);
-    timer->setInterval(3600000);
-    timer->setTimerType(Qt::CoarseTimer);
-    connect(timer, &QTimer::timeout,
-            this, &Moon::updatePhaseAngle);
-    timer->start();
-    updatePhaseAngle();
+  auto *timer = new QTimer(this);
+  timer->setInterval(3600000);
+  timer->setTimerType(Qt::CoarseTimer);
+  connect(timer, &QTimer::timeout,
+      this, &Moon::updatePhaseAngle);
+  timer->start();
+  updatePhaseAngle();
 }
 
 double Moon::phaseAngle() const {
-    return m_phaseAngle;
+  return m_phaseAngle;
 }
 
 void Moon::updatePhaseAngle() {
-    const double newValue = Astronomy_MoonPhase(Astronomy_CurrentTime()).angle;
+  const double newValue = Astronomy_MoonPhase(Astronomy_CurrentTime()).angle;
 
-    if (qAbs(m_phaseAngle - newValue) < 1e-9)
+  if (qAbs(m_phaseAngle - newValue) < 1e-9)
     return;
 
-    m_phaseAngle = newValue;
-    emit phaseAngleChanged();
+  m_phaseAngle = newValue;
+  emit phaseAngleChanged();
 }
