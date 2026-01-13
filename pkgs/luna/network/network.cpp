@@ -20,10 +20,8 @@ Network::Network(QObject *parent) : QObject(parent) {
     qWarning() << "D-Bus call failed:" << reply.error().message();
     return;
   }
-
-  m_wirelessEnabled = reply.value().toBool();
 }
 
 bool Network::wirelessEnabled() const {
-  return m_wirelessEnabled;
+  return reply.value().toBool();
 }
