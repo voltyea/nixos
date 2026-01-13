@@ -14,6 +14,7 @@ import qs.osd
 import qs.workspace
 import qs.colors
 import qs.menu
+import Luna.Network
 
 ShellRoot {
   id: root
@@ -261,7 +262,8 @@ ShellRoot {
       }
       Text {
         anchors.horizontalCenter: parent.horizontalCenter
-        text: ""
+        //text: ""
+        text: Network.enabled
         font.family: "icomoon"
         color: "#" + Color.colors.on_primary
         font.pointSize: 26

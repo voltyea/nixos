@@ -15,4 +15,7 @@ class Network : public QObject {
 
 signals:
     void enabledChanged();
+
+  private:
+    bool m_enabled = false;
 };

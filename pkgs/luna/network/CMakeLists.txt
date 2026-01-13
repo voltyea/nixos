@@ -7,7 +7,7 @@ project(network LANGUAGES CXX C)
   set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-  find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml Dbus)
+  find_package(Qt6 REQUIRED COMPONENTS Core Quick Qml DBus)
 qt_standard_project_setup(REQUIRES 6.10)
   qt_add_qml_module(network
       URI Luna.Network
@@ -22,7 +22,7 @@ qt_standard_project_setup(REQUIRES 6.10)
       Qt6::Core
       Qt6::Qml
       Qt6::Quick
-      Qt6::Dbus
+      Qt6::DBus
       )
 
   target_include_directories(network PRIVATE

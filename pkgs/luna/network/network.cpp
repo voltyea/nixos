@@ -1,20 +1,7 @@
 #include "network.h"
-#include <QDBusInterface>
-#include <QDBusConnection>
-#include <QDBus>
+#include <QtDBus>
 
 Network::Network(QObject *parent) : QObject(parent) {
-  QDBusInterface nm(
-      "org.freedesktop.NetworkManager",
-      "/org/freedesktop/NetworkManager",
-      "org.freedesktop.NetworkManager",
-      QDBusConnection::systemBus()
-      );
-
-  if (!nm.isValid()) {
-    qWarning() << "Failed to connect to NetworkManager";
-  }
-
   QDBusInterface props(
       "org.freedesktop.NetworkManager",
       "/org/freedesktop/NetworkManager",
@@ -22,9 +9,24 @@ Network::Network(QObject *parent) : QObject(parent) {
       QDBusConnection::systemBus()
       );
 
-  QDBusReply<QVariant> reply = props.call("Get", "org.freedesktop.NetworkManager", "NetworkingEnabled");
+  if (!props.isValid()) {
+    qWarning() << "Failed to connect to NetworkManager properties interface";
+    return;
+  }
+
+  QDBusReply<QVariant> reply =
+    props.call("Get",
+        "org.freedesktop.NetworkManager",
+        "NetworkingEnabled");
+
+  if (!reply.isValid()) {
+    qWarning() << "D-Bus call failed:" << reply.error().message();
+    return;
+  }
+
+  m_enabled = reply.value().toBool();
 }
 
 bool Network::enabled() const {
-  return reply.value().toBool();
+  return m_enabled;
 }
