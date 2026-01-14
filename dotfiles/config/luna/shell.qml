@@ -263,7 +263,7 @@ ShellRoot {
       Text {
         anchors.horizontalCenter: parent.horizontalCenter
         //text: ""
-        text: Network.wirelessEnabled
+        text: console.log(Network.accessPoints[0].Ssid)
         font.family: "icomoon"
         color: "#" + Color.colors.on_primary
         font.pointSize: 26
