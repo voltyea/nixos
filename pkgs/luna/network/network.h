@@ -15,4 +15,10 @@ class Network : public QObject {
 
 signals:
     void wirelessEnabledChanged();
+
+    private slots:
+      void onPropertiesChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated) {
+        emit wirelessEnabledChanged();
+      }
+
 };

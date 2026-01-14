@@ -5,8 +5,8 @@
 Moon::Moon(QObject *parent) : QObject(parent) {
   QTimer *timer = new QTimer(this);
   connect(timer, &QTimer::timeout, this, &Moon::phaseAngleChanged);
-    timer->setInterval(3600000);
-    timer->start();
+  timer->setInterval(3600000);
+  timer->start();
 }
 
 double Moon::phaseAngle() const {

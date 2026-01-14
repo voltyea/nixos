@@ -2,6 +2,17 @@
 #include <QtDBus>
 
 Network::Network(QObject *parent) : QObject(parent) {
+  QDBusConnection::systemBus().connect(
+      "org.freedesktop.NetworkManager",
+      "/org/freedesktop/NetworkManager",
+      "org.freedesktop.DBus.Properties",
+      "PropertiesChanged",
+      this,
+      SLOT(onPropertiesChanged(QString, QVariantMap, QStringList))
+      );
+}
+
+bool Network::wirelessEnabled() const {
   QDBusInterface props(
       "org.freedesktop.NetworkManager",
       "/org/freedesktop/NetworkManager",
@@ -9,19 +20,7 @@ Network::Network(QObject *parent) : QObject(parent) {
       QDBusConnection::systemBus()
       );
 
-  if (!props.isValid()) {
-    qWarning() << "Failed to connect to NetworkManager properties interface";
-    return;
-  }
-
   QDBusReply<QVariant> reply = props.call("Get", "org.freedesktop.NetworkManager", "WirelessEnabled");
 
-  if (!reply.isValid()) {
-    qWarning() << "D-Bus call failed:" << reply.error().message();
-    return;
-  }
-}
-
-bool Network::wirelessEnabled() const {
   return reply.value().toBool();
 }
