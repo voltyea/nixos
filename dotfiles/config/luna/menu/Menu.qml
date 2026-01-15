@@ -12,11 +12,11 @@ import qs.utils
 Rectangle {
   id: root
   readonly property string activeSsid: {
-    let item = Network.networks.find(e => e.active)
+    let item = Network.accessPoints.find(e => e.active)
     return item ? item.ssid : ""
   }
   readonly property int activeStrength: {
-    let item = Network.networks.find(e => e.active)
+    let item = Network.accessPoints.find(e => e.active)
     return item ? item.strength : 0
   }
   clip: true

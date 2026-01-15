@@ -60,7 +60,7 @@ Loader {
       ColumnLayout {
         spacing: 5
         Repeater {
-          model: Network.networks
+          model: Network.accessPoints
           Rectangle {
             property bool beingHovered: false
             height: 50
