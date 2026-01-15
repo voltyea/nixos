@@ -74,7 +74,7 @@ void Network::fetchSavedConnections() {
   auto *w = new QDBusPendingCallWatcher(nm.asyncCall("ListConnections"), this);
   connect(w, &QDBusPendingCallWatcher::finished, this, [this, w]() {
       QDBusPendingReply<QList<QDBusObjectPath>> r = *w;
-      w->deleteLater();
+      w -> deleteLater();
       if (r.isValid()) {
       for (const auto &path : r.value()) {
       QDBusInterface conn("org.freedesktop.NetworkManager", path.path(), "org.freedesktop.NetworkManager.Settings.Connection", QDBusConnection::systemBus());
@@ -93,7 +93,7 @@ void Network::fetchDevices() {
   auto *w = new QDBusPendingCallWatcher(nm.asyncCall("GetDevices"), this);
   connect(w, &QDBusPendingCallWatcher::finished, this, [this, w]() {
       QDBusPendingReply<QList<QDBusObjectPath>> r = *w;
-      w->deleteLater();
+      w -> deleteLater();
       if (!r.isValid()) return;
       for (const auto &dev : r.value()) {
       QDBusInterface props("org.freedesktop.NetworkManager", dev.path(), "org.freedesktop.DBus.Properties", QDBusConnection::systemBus());
@@ -113,7 +113,7 @@ void Network::fetchAccessPoints(const QDBusObjectPath &device, const QDBusObject
   auto *w = new QDBusPendingCallWatcher(wifi.asyncCall("GetAccessPoints"), this);
   connect(w, &QDBusPendingCallWatcher::finished, this, [this, w, device, activeAp]() {
       QDBusPendingReply<QList<QDBusObjectPath>> r = *w;
-      w->deleteLater();
+      w -> deleteLater();
       if (!r.isValid()) return;
       for (const auto &apPath : r.value()) {
       QDBusInterface ap("org.freedesktop.NetworkManager", apPath.path(), "org.freedesktop.DBus.Properties", QDBusConnection::systemBus());
@@ -124,13 +124,13 @@ void Network::fetchAccessPoints(const QDBusObjectPath &device, const QDBusObject
       QDBusReply<QVariant> rsn = ap.call("Get", "org.freedesktop.NetworkManager.AccessPoint", "RsnFlags");
       if (!ssid.isValid() || !strength.isValid()) continue;
       auto *obj = new AccessPoint(this);
-      obj->m_ssid = decodeSsid(ssid.value());
-      obj->m_strength = strength.value().toUInt();
-      obj->m_active = (apPath.path() == activeAp.path());
-      obj->m_open = ((flags.value().toUInt() | wpa.value().toUInt() | rsn.value().toUInt()) == 0);
-      obj->m_saved = m_savedSsids.contains(obj->m_ssid);
-      obj->m_apPath = apPath;
-      obj->m_devicePath = device;
+      obj -> m_ssid = decodeSsid(ssid.value());
+      obj -> m_strength = strength.value().toUInt();
+      obj -> m_active = (apPath.path() == activeAp.path());
+      obj -> m_open = ((flags.value().toUInt() | wpa.value().toUInt() | rsn.value().toUInt()) == 0);
+      obj -> m_saved = m_savedSsids.contains(obj -> m_ssid);
+      obj -> m_apPath = apPath;
+      obj -> m_devicePath = device;
       QDBusConnection::systemBus().connect("org.freedesktop.NetworkManager", apPath.path(), "org.freedesktop.DBus.Properties", "PropertiesChanged", this, SLOT(onDbusPropertiesChanged(QString,QVariantMap,QStringList)));
       m_accessPoints.append(obj);
       }

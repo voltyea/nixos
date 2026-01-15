@@ -17,22 +17,18 @@ class AccessPoint : public QObject {
 
   public:
     explicit AccessPoint(QObject *parent = nullptr) : QObject(parent) {}
-
-    QString ssid() const { return m_ssid; }
-    uint strength() const { return m_strength; }
-    bool active() const { return m_active; }
-    bool open() const { return m_open; }
-    bool saved() const { return m_saved; }
-
+    QString ssid() const {return m_ssid;}
+    uint strength() const {return m_strength;}
+    bool active() const {return m_active;}
+    bool open() const {return m_open;}
+    bool saved() const {return m_saved;}
     Q_INVOKABLE void connect(const QString &password = QString());
     Q_INVOKABLE void disconnect();
-
     QString m_ssid;
     uint m_strength = 0;
     bool m_active = false;
     bool m_open = false;
     bool m_saved = false;
-
     QDBusObjectPath m_apPath;
     QDBusObjectPath m_devicePath;
 };
@@ -46,7 +42,6 @@ class Network : public QObject {
 
   public:
     explicit Network(QObject *parent = nullptr);
-
     bool wirelessEnabled() const;
     QVariantList accessPoints() const;
 
@@ -58,7 +53,6 @@ signals:
       void onApAdded(const QDBusObjectPath &ap);
     void onApRemoved(const QDBusObjectPath &ap);
     void onDbusPropertiesChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated);
-
     void onNmPropertiesChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated);
 
   private:
