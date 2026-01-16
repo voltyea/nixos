@@ -53,7 +53,7 @@ signals:
       void onApAdded(const QDBusObjectPath &ap);
     void onApRemoved(const QDBusObjectPath &ap);
     void onDbusPropertiesChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated);
-    void onNmPropertiesChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated);
+    void onPropertiesChanged(const QString &interface, const QVariantMap &changed, const QStringList &invalidated);
 
   private:
     QVector<AccessPoint*> m_accessPoints;

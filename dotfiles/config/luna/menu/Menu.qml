@@ -133,7 +133,7 @@ Rectangle {
             z: -1
             Text {
               anchors.centerIn: parent
-              text: !Network.active ? "" : root.activeStrength < 33.33 ? "" : root.activeStrength >= 33.33 && root.activeStrength < 66.66 ? "" : ""
+              text: !Network.wirelessEnabled ? "" : root.activeStrength < 33.33 ? "" : root.activeStrength >= 33.33 && root.activeStrength < 66.66 ? "" : ""
               font.family: "icomoon"
               color: "#" + Color.colors.on_primary
               font.pointSize: 19
