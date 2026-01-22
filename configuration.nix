@@ -12,7 +12,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.timeout = 0;
   boot.kernelModules = ["rtw89"];
-  boot.kernelParams = ["iomem=relaxed"];
+  boot.kernelParams = ["iomem=relaxed" "quiet"];
   hardware.enableAllFirmware = true;
   boot.initrd.availableKernelModules = [
     "xhci_pci"
@@ -111,7 +111,7 @@
     alejandra
     qt6.qtimageformats
     (qt6.callPackage ./pkgs/luna/moon/moon.nix {})
-    (qt6.callPackage ./pkgs/luna/network/network.nix {})
+    #(qt6.callPackage ./pkgs/luna/network/network.nix {})
     (callPackage ./pkgs/luna/luna.nix {})
     dmidecode
     p7zip
@@ -119,6 +119,7 @@
     gparted
     kdePackages.dolphin
     innoextract
+    qutebrowser
   ];
 
   fonts.packages = with pkgs; [

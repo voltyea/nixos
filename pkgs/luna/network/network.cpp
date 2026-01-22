@@ -3,9 +3,6 @@
 Network::Network(QObject *parent) : QObject(parent) {}
 
 QList<AccessPoint> Network::accessPoints() {
-QSet<QByteArray> savedSsids;
-QSet<QString> activeApPaths;
-QList<AccessPoint> result;
 
   QDBusInterface settingsIface(
       "org.freedesktop.NetworkManager",
@@ -26,11 +23,11 @@ QList<AccessPoint> result;
           );
       auto *msgWatcher = new QDBusPendingCallWatcher(connIface.asyncCall("GetSettings"), this);
       connect(msgWatcher, &QDBusPendingCallWatcher::finished, this, [&, msgWatcher]() {
-          QDBusPendingReply<QDBusMessage> msgReply = *msgWatcher;
+          QDBusPendingReply<QVariant> msgReply = *msgWatcher;
           msgWatcher->deleteLater();
-          QMap<QString, QVariantMap> settings = qdbus_cast<QMap<QString, QVariantMap>>(msgReply.value().arguments().at(0));
+          QMap<QString, QVariantMap> settings = qdbus_cast<QMap<QString, QVariantMap>>(msgReply.argumentAt(0));
           if (settings.value("connection").value("type") == "802-11-wireless") {
-          savedSsids.insert(settings.value("802-11-wireless").value("ssid").toByteArray());
+          m_savedSsids.insert(settings.value("802-11-wireless").value("ssid").toByteArray());
           }
           });
       }
@@ -58,7 +55,7 @@ QList<AccessPoint> result;
       connect(activeApWatcher, &QDBusPendingCallWatcher::finished, this, [&, activeApWatcher]() {
           QDBusPendingReply<QDBusObjectPath> activeApReply = *activeApWatcher;
           activeApWatcher->deleteLater();
-          activeApPaths.insert(activeApReply.value().path());
+          m_activeApPaths.insert(activeApReply.value().path());
           });
       }
       });
@@ -104,8 +101,8 @@ QList<AccessPoint> result;
                       strengthWatcher->deleteLater();
                       ap.strength = strengthReply.value().toUInt();
                       });
-                  ap.active = activeApPaths.contains(apPath.path());
-                  ap.saved = savedSsids.contains(ssid);
+                  ap.active = m_activeApPaths.contains(apPath.path());
+                  ap.saved = m_savedSsids.contains(ssid);
                   uint flags;
                   uint wpaflags;
                   uint rsnflags;
@@ -130,7 +127,7 @@ QList<AccessPoint> result;
                   if(flags == 0 && wpaflags == 0 && rsnflags == 0 ) {
                     ap.open = true;
                   }
-                  result.append(ap);
+                  m_result.append(ap);
                   }
               });
               }
@@ -139,5 +136,5 @@ QList<AccessPoint> result;
       });
       }
   });
-  return result;
+  return m_result;
 }

@@ -1,11 +1,11 @@
 {
   lib,
-  stdenv,
+  llvmPackages,
   cmake,
   qt6,
   wrapQtAppsHook,
 }:
-stdenv.mkDerivation rec {
+llvmPackages.stdenv.mkDerivation rec {
   pname = "luna-moon";
   version = "1.0";
 

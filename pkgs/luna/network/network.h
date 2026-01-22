@@ -4,34 +4,46 @@
 #include <QtQml/qqml.h>
 #include <QtDBus>
 
-struct AccessPoint {
-  Q_GADGET
-    Q_PROPERTY(QString ssid MEMBER ssid)
-    Q_PROPERTY(int strength MEMBER strength)
-    Q_PROPERTY(bool active MEMBER active)
-    Q_PROPERTY(bool saved MEMBER saved)
-    Q_PROPERTY(bool open MEMBER open)
+class AccessPoint : public QObject {
+  Q_OBJECT
+    Q_PROPERTY(QString ssid READ ssid)
+    Q_PROPERTY(int strength READ strength)
+    Q_PROPERTY(bool active READ active)
+    Q_PROPERTY(bool saved READ saved)
+    Q_PROPERTY(bool open READ open)
+    Q_PROPERTY(int flags READ flags)
+    Q_PROPERTY(int wpaFlags READ wpaFlags)
+    Q_PROPERTY(int rsnFlags READ rsnFlags)
 
   public:
-    QString ssid;
-    int strength = 0;
-    bool active = false;
-    bool saved = false;
-    bool open = false;
+    QString ssid() const;
+    int strength() const;
+    bool active() const;
+    bool saved() const;
+    bool open() const;
+    int flags() const;
+    int wpaFlags() const;
+    int rsnFlags() const;
+
+  private:
+    QDBusObjectPath m_apPath;
 };
-  Q_DECLARE_METATYPE(AccessPoint)
-Q_DECLARE_METATYPE(QList<AccessPoint>)
 
-  class Network : public QObject {
-    Q_OBJECT
-      Q_PROPERTY(QList<AccessPoint> accessPoints READ accessPoints NOTIFY accessPointsChanged)
-      QML_ELEMENT
-      QML_SINGLETON
+class Network : public QObject {
+  Q_OBJECT
+    Q_PROPERTY(QList<AccessPoint*> accessPoints READ accessPoints NOTIFY accessPointsChanged)
+    QML_ELEMENT
+    QML_SINGLETON
 
-    public:
-      explicit Network(QObject *parent = nullptr);
-      QList<AccessPoint> accessPoints();
+  public:
+    explicit Network(QObject *parent = nullptr);
+    QList<AccessPoint*> accessPoints();
+
+  private:
+    QSet<QByteArray> m_savedSsids;
+    QSet<QString> m_activeApPaths;
+    QList<AccessPoint*> m_result;
 
 signals:
-      void accessPointsChanged();
-  };
+    void accessPointsChanged();
+};
