@@ -14,10 +14,10 @@ struct AccessPoint {
 
   public:
     QString ssid;
-    int strength;
-    bool active;
-    bool saved;
-    bool open;
+    int strength = 0;
+    bool active = false;
+    bool saved = false;
+    bool open = false;
 };
   Q_DECLARE_METATYPE(AccessPoint)
 Q_DECLARE_METATYPE(QList<AccessPoint>)
@@ -30,15 +30,7 @@ Q_DECLARE_METATYPE(QList<AccessPoint>)
 
     public:
       explicit Network(QObject *parent = nullptr);
-      QList<AccessPoint> accessPoints() const;
-
-    private:
-      QList<AccessPoint> m_result;
-      QSet<QString> m_activeApPaths;
-      QSet<QByteArray> m_savedSsids;
-      uint m_flags;
-      uint m_wpaflags;
-      uint m_rsnflags;
+      QList<AccessPoint> accessPoints();
 
 signals:
       void accessPointsChanged();

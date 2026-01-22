@@ -1,12 +1,11 @@
 {
   lib,
-  stdenv,
+  llvmPackages,
   cmake,
   qt6,
   wrapQtAppsHook,
-  clang,
 }:
-stdenv.mkDerivation rec {
+llvmPackages.stdenv.mkDerivation rec {
   pname = "luna-network";
   version = "1.0";
 
@@ -14,7 +13,6 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-    clang
     wrapQtAppsHook
   ];
 

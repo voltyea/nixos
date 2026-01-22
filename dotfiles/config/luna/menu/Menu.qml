@@ -148,8 +148,7 @@ Rectangle {
           width: 95
           maxFontSize: 18
           minFontSize: 8
-          //text: root.activeSsid === "" ? "Wifi" : root.activeSsid
-          text: console.log(Network.accessPoints)
+          text: root.activeSsid === "" ? "Wifi" : root.activeSsid
           color: "#" + Color.colors.on_primary
           fontFamily: "SF Pro Rounded"
           bold: true
