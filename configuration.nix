@@ -111,15 +111,12 @@
     alejandra
     qt6.qtimageformats
     (qt6.callPackage ./pkgs/luna/moon/moon.nix {})
-    #(qt6.callPackage ./pkgs/luna/network/network.nix {})
+    (qt6.callPackage ./pkgs/luna/network/network.nix {})
     (callPackage ./pkgs/luna/luna.nix {})
     dmidecode
     p7zip
     file
     gparted
-    kdePackages.dolphin
-    innoextract
-    qutebrowser
   ];
 
   fonts.packages = with pkgs; [

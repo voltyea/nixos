@@ -74,8 +74,9 @@ Loader {
               onEntered: parent.beingHovered=true
               onExited: parent.beingHovered=false
               onClicked: {
-                network.index = index
-                auth.active = true
+                //network.index = index
+                //auth.active = true
+                modelData.connect("")
               }
             }
             AutoFitText {
