@@ -4,6 +4,18 @@
 #include <QtQml/qqml.h>
 #include <QtDBus>
 
+class ConnectionResult : public QObject {
+  Q_OBJECT
+
+  public:
+    enum class Enum {
+      None = 0,
+      Unknown = 1,
+      WrongPassword = 7
+    };
+    Q_ENUM(Enum)
+};
+
 class AccessPoint : public QObject {
   Q_OBJECT
     Q_PROPERTY(QString ssid READ ssid CONSTANT)
@@ -28,7 +40,8 @@ class AccessPoint : public QObject {
     int rsnFlags() const;
     QDBusObjectPath m_apPath;
     QDBusObjectPath m_devicePath;
-    Q_INVOKABLE void connect(const QString &password);
+    Q_INVOKABLE ConnectionResult::Enum connect(const QString &password);
+    Q_INVOKABLE ConnectionResult::Enum connect();
 
 signals:
     void strengthChanged();
@@ -68,12 +81,14 @@ class Network : public QObject {
   private:
     QList<QByteArray> m_savedSsids;
     QList<QString> m_activeApPaths;
+    QList<AccessPoint*> m_result;
+    void getAp();
 
 signals:
     void accessPointsChanged();
 
     private slots:
       void onApChanged(const QDBusObjectPath &ap) {
-        emit accessPointsChanged();
+        getAp();
       }
 };

@@ -120,18 +120,84 @@ int AccessPoint::rsnFlags() const {
   return aprsnflags.property("RsnFlags").toUInt();
 }
 
-void AccessPoint::connect(const QString &password) {
+ConnectionResult::Enum AccessPoint::connect(const QString &password) {
   QDBusInterface nm(
       "org.freedesktop.NetworkManager",
       "/org/freedesktop/NetworkManager",
       "org.freedesktop.NetworkManager",
       QDBusConnection::systemBus()
       );
-  QMap<QString, QVariantMap> settings;
-  nm.call("AddAndActivateConnection", QVariant::fromValue(settings), m_devicePath, m_apPath);
+  QDBusInterface deviceState(
+      "org.freedesktop.NetworkManager",
+      m_devicePath.path(),
+      "org.freedesktop.DBus.Properties",
+      QDBusConnection::systemBus()
+      );
+  if(saved() || (flags() == 0 && wpaFlags() == 0 && rsnFlags() == 0)) {
+    nm.call("ActivateConnection", QDBusObjectPath("/"), m_devicePath, m_apPath);
+  }
+  else {
+    QVariantMap wifiSecurity;
+    wifiSecurity["key-mgmt"] = "wpa-psk";
+    wifiSecurity["psk"] = password;
+    QMap<QString, QVariantMap> settings;
+    settings.insert("802-11-wireless-security", wifiSecurity);
+    nm.call("AddAndActivateConnection", QVariant::fromValue(settings), m_devicePath, m_apPath);
+  }
+  QDBusReply<QVariant> reply = deviceState.call("Get", "org.freedesktop.NetworkManager.Device", "StateReason");
+  const QDBusArgument arg = reply.value().value<QDBusArgument>();
+  uint state = 0;
+  uint reason = 0;
+  arg.beginStructure();
+  arg >> state >> reason;
+  arg.endStructure();
+  switch(reason) {
+    case 0:
+      return ConnectionResult::Enum::None;
+    case 1:
+      return ConnectionResult::Enum::Unknown;
+    case 7:
+      return ConnectionResult::Enum::WrongPassword;
+    default:
+      return ConnectionResult::Enum::Unknown;
+  }
+}
+
+ConnectionResult::Enum AccessPoint::connect() {
+  QDBusInterface nm(
+      "org.freedesktop.NetworkManager",
+      "/org/freedesktop/NetworkManager",
+      "org.freedesktop.NetworkManager",
+      QDBusConnection::systemBus()
+      );
+  QDBusInterface deviceState(
+      "org.freedesktop.NetworkManager",
+      m_devicePath.path(),
+      "org.freedesktop.DBus.Properties",
+      QDBusConnection::systemBus()
+      );
+  nm.call("ActivateConnection", QDBusObjectPath("/"), m_devicePath, m_apPath);
+  QDBusReply<QVariant> reply = deviceState.call("Get", "org.freedesktop.NetworkManager.Device", "StateReason");
+  const QDBusArgument arg = reply.value().value<QDBusArgument>();
+  uint state = 0;
+  uint reason = 0;
+  arg.beginStructure();
+  arg >> state >> reason;
+  arg.endStructure();
+  switch(reason) {
+    case 0:
+      return ConnectionResult::Enum::None;
+    case 1:
+      return ConnectionResult::Enum::Unknown;
+    case 7:
+      return ConnectionResult::Enum::WrongPassword;
+    default:
+      return ConnectionResult::Enum::Unknown;
+  }
 }
 
 Network::Network(QObject *parent) : QObject(parent) {
+  getAp();
   QDBusInterface nm(
       "org.freedesktop.NetworkManager",
       "/org/freedesktop/NetworkManager",
@@ -167,8 +233,7 @@ Network::Network(QObject *parent) : QObject(parent) {
   }
 }
 
-QList<AccessPoint*> Network::accessPoints() {
-  QList<AccessPoint*> result;
+void Network::getAp() {
   QDBusInterface nm(
       "org.freedesktop.NetworkManager",
       "/org/freedesktop/NetworkManager",
@@ -184,18 +249,51 @@ QList<AccessPoint*> Network::accessPoints() {
         );
     QDBusReply<QVariant> deviceType = props.call("Get", "org.freedesktop.NetworkManager.Device", "DeviceType");
     if(deviceType.value().toUInt() == 2) {
-      QDBusReply<QVariant> apReply = props.call("Get", "org.freedesktop.NetworkManager.Device.Wireless", "AccessPoints");
-      QList<QDBusObjectPath> apPaths;
-      apReply.value().value<QDBusArgument>() >> apPaths;
-      for(const QDBusObjectPath &apPath : apPaths) {
-        auto *ap = new AccessPoint(this);
-        ap->m_apPath = apPath;
-        if(!ap->ssid().isEmpty()) {
+      auto *watcher = new QDBusPendingCallWatcher(props.asyncCall("Get", "org.freedesktop.NetworkManager.Device.Wireless", "AccessPoints"), this);
+      connect(watcher, &QDBusPendingCallWatcher::finished, this, [&, watcher, devicePath]() {
+          QDBusPendingReply<QVariant> apReply = *watcher;
+          watcher->deleteLater();
+          QList<QDBusObjectPath> apPaths;
+          apReply.value().value<QDBusArgument>() >> apPaths;
+          m_result.clear();
+          for(const QDBusObjectPath &apPath : apPaths) {
+          auto *ap = new AccessPoint(this);
+          ap->m_apPath = apPath;
+          if(!ap->ssid().isEmpty()) {
           ap->m_devicePath = devicePath;
-          result.append(ap);
-        }
-      }
+          m_result.append(ap);
+          }
+          }
+          QHash<QString, AccessPoint*> bestBySsid;
+          for(AccessPoint* net : m_result) {
+          auto it = bestBySsid.find(net->ssid());
+          if(it == bestBySsid.end()) {
+          bestBySsid.insert(net->ssid(), net);
+          continue;
+          }
+          AccessPoint* current = it.value();
+          if(net->active() && !current->active()) {
+            it.value() = net;
+          }
+          else if(net->active() == current->active() && net->strength() > current->strength()) {
+            it.value() = net;
+          }
+          }
+          QList<AccessPoint*> result;
+          result.reserve(bestBySsid.size());
+          for(auto it = bestBySsid.begin(); it != bestBySsid.end(); ++it) {
+            result.append(it.value());
+          }
+          std::sort(result.begin(), result.end(), [](const AccessPoint* a, const AccessPoint* b) {
+              return a->strength() > b->strength();
+              });
+          m_result = std::move(result);
+          emit accessPointsChanged();
+      });
     }
   }
-  return result;
+}
+
+QList<AccessPoint*> Network::accessPoints() {
+  return m_result;
 }
