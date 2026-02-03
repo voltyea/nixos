@@ -76,7 +76,7 @@ Loader {
               onClicked: {
                 //network.index = index
                 //auth.active = true
-                console.log(modelData.connect("jgggkgk"))
+                modelData.connect("jgggkgk")
               }
             }
             AutoFitText {

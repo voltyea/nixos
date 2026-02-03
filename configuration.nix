@@ -111,8 +111,8 @@
     alejandra
     qt6.qtimageformats
     (qt6.callPackage ./pkgs/luna/moon/moon.nix {})
-    (qt6.callPackage ./pkgs/luna/network/network.nix {})
     (callPackage ./pkgs/luna/luna.nix {})
+    (callPackage ./pkgs/starship-moon/starship-moon.nix {})
     dmidecode
     p7zip
     file
