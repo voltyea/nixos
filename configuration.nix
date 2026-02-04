@@ -2,8 +2,15 @@
   config,
   pkgs,
   lib,
+  quickshell,
   ...
-}: {
+}:
+let
+  luna = pkgs.callPackage ./pkgs/luna/luna.nix {
+    quickshell = quickshell.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  };
+in
+{
   imports = [
     ./hardware-configuration.nix
     ./users/volty.nix
@@ -67,6 +74,8 @@
   programs.fish.enable = true;
   programs.nix-ld.enable = true;
   programs.hyprland.enable = true;
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
   programs.neovim.enable = true;
   hardware.intel-gpu-tools.enable = true;
   programs.git.enable = true;
@@ -111,12 +120,13 @@
     alejandra
     qt6.qtimageformats
     (qt6.callPackage ./pkgs/luna/moon/moon.nix {})
-    (callPackage ./pkgs/luna/luna.nix {})
+    luna
     (callPackage ./pkgs/starship-moon/starship-moon.nix {})
     dmidecode
     p7zip
     file
     gparted
+    ffmpeg
   ];
 
   fonts.packages = with pkgs; [
